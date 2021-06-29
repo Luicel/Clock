@@ -1,6 +1,8 @@
 package com.luicel.clock.commands.timer;
 
 import com.luicel.clock.commands.SubCommands;
+import com.luicel.clock.commands.annotations.ArgumentsText;
+import com.luicel.clock.commands.annotations.HelpOrder;
 import com.luicel.clock.files.TimerFile;
 import com.luicel.clock.models.Timer;
 import com.luicel.clock.utils.PrefixUtils;
@@ -9,9 +11,9 @@ import org.bukkit.command.CommandSender;
 
 import java.io.IOException;
 
+@HelpOrder(1)
+@ArgumentsText("<name>")
 public class CreateSubCommand extends SubCommands {
-    private static final String argText = "<name>";
-
     public CreateSubCommand(CommandSender sender, String label, String[] args) {
         super(sender, label, args);
     }

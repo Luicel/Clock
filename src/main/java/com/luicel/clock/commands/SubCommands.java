@@ -1,5 +1,6 @@
 package com.luicel.clock.commands;
 
+import com.luicel.clock.commands.annotations.ArgumentsText;
 import com.luicel.clock.utils.ChatUtils;
 import com.luicel.clock.utils.PrefixUtils;
 import org.bukkit.command.CommandSender;
@@ -59,16 +60,8 @@ public abstract class SubCommands {
         sendMessage("&c&lINVALID SYNTAX:");
 
         String subCommandName = subCommand.getClass().getSimpleName().replace("SubCommand", "").toLowerCase();
-        Field argText = null;
-        try {
-            argText = subCommand.getClass().getDeclaredField("argText");
-            argText.setAccessible(true);
-            sendMessage(String.format("&7/%s %s %s", getLabel(), subCommandName, argText.get(null)));
-        } catch (NoSuchFieldException | IllegalAccessException e) {
-            sendMessage(PrefixUtils.getInternalErrorPrefix() + "&7Check console for more information.");
-            e.printStackTrace();
-        }
-
+        String argumentsText = subCommand.getClass().getAnnotation(ArgumentsText.class).value();
+        sendMessage(String.format("&7/%s %s %s", getLabel(), subCommandName, argumentsText));
     }
 
     public void sendMessage(String message) {

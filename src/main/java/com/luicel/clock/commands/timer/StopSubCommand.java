@@ -1,11 +1,13 @@
 package com.luicel.clock.commands.timer;
 
 import com.luicel.clock.commands.SubCommands;
+import com.luicel.clock.commands.annotations.ArgumentsText;
+import com.luicel.clock.commands.annotations.HelpOrder;
 import org.bukkit.command.CommandSender;
 
+@HelpOrder(4)
+@ArgumentsText("<name>")
 public class StopSubCommand extends SubCommands {
-    private static final String argText = "<name>";
-
     public StopSubCommand(CommandSender sender, String label, String[] args) {
         super(sender, label, args);
     }

@@ -2,6 +2,8 @@ package com.luicel.clock.commands.timer;
 
 import com.luicel.clock.commands.Commands;
 import com.luicel.clock.commands.SubCommands;
+import com.luicel.clock.commands.annotations.ArgumentsText;
+import com.luicel.clock.commands.annotations.HelpOrder;
 import com.luicel.clock.utils.ChatUtils;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -35,25 +37,5 @@ public class TimerCommand extends Commands {
             }
         }
         return true;
-    }
-
-    private void printHelpMessage(Player player) {
-        ArrayList<String> texts = new ArrayList<String>();
-        new Reflections("com.luicel.clock.commands.timer").getSubTypesOf(SubCommands.class).forEach(subCommand -> {
-            try {
-                String subCommandName = subCommand.getSimpleName().replace("SubCommand", "").toLowerCase();
-                Field argText = subCommand.getDeclaredField("argText");
-                argText.setAccessible(true);
-
-                texts.add(String.format("%s %s", subCommandName, argText.get(null)));
-            } catch (IllegalAccessError | NoSuchFieldException | IllegalAccessException e) {
-                e.printStackTrace();
-            }
-        });
-
-        player.sendMessage(ChatUtils.format("&c&lCOMMAND USAGE:"));
-        for (String text : texts) {
-            player.sendMessage(ChatUtils.format(String.format("&7/%s %s", commandName, text)));
-        }
     }
 }
