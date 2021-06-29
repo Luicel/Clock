@@ -1,0 +1,9 @@
+name: Clock
+version: ${project.version}
+main: com.luicel.clock.Clock
+api-version: 1.16
+authors: [ Luicel ]
+
+commands:
+  timer:
+    usage: /<command>
