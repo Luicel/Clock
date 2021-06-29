@@ -1,13 +1,9 @@
 package com.luicel.clock.commands;
 
-import com.luicel.clock.commands.annotations.ArgumentsText;
+import com.luicel.clock.annotations.ArgumentsText;
 import com.luicel.clock.utils.ChatUtils;
-import com.luicel.clock.utils.PrefixUtils;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-
-import java.lang.reflect.Field;
-import java.util.Locale;
 
 public abstract class SubCommands {
     private CommandSender sender;

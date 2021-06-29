@@ -1,14 +1,12 @@
 package com.luicel.clock.commands;
 
-import com.luicel.clock.commands.annotations.ArgumentsText;
-import com.luicel.clock.commands.annotations.HelpOrder;
+import com.luicel.clock.annotations.ArgumentsText;
+import com.luicel.clock.annotations.HelpOrder;
 import com.luicel.clock.utils.ChatUtils;
-import org.bukkit.Bukkit;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.entity.Player;
 import org.reflections.Reflections;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 

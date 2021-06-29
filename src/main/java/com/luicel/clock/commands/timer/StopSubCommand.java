@@ -1,8 +1,8 @@
 package com.luicel.clock.commands.timer;
 
 import com.luicel.clock.commands.SubCommands;
-import com.luicel.clock.commands.annotations.ArgumentsText;
-import com.luicel.clock.commands.annotations.HelpOrder;
+import com.luicel.clock.annotations.ArgumentsText;
+import com.luicel.clock.annotations.HelpOrder;
 import org.bukkit.command.CommandSender;
 
 @HelpOrder(4)
