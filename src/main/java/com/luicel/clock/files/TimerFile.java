@@ -1,13 +1,14 @@
 package com.luicel.clock.files;
 
-import java.io.File;
+import com.luicel.clock.annotations.FileDirectory;
+
 import java.io.IOException;
-import java.util.Objects;
+import java.util.ArrayList;
+import java.util.List;
 
+@FileDirectory("data")
 public class TimerFile extends Files {
-    private static final String directory = "data";
-
-    public TimerFile(String fileName) {
+    public TimerFile(String fileName, String directory) {
         super(fileName, directory);
     }
 
@@ -25,13 +26,18 @@ public class TimerFile extends Files {
 
     public static boolean doesTimerExist(String timerName) {
         try {
-            for (String timerID : ymlConfig.getConfigurationSection("timer").getKeys(false)) {
-                if (timerID.equalsIgnoreCase(timerName))
+            for (String timer : ymlConfig.getConfigurationSection("timer").getKeys(false)) {
+                if (timer.equalsIgnoreCase(timerName))
                     return true;
             }
         } catch (NullPointerException e) {
             return false;
         }
         return false;
+    }
+
+    // TODO Once timer model is done, replace String with Timer
+    public static List<String> getTimers() {
+        return new ArrayList<String>(ymlConfig.getConfigurationSection("timer").getKeys(false));
     }
 }

@@ -19,11 +19,17 @@ public class TimerCommand extends Commands {
                     case "delete":
                         new DeleteSubCommand(sender, label, args);
                         break;
+                    case "list":
+                        new ListSubCommand(sender, label, args);
+                        break;
                     case "start":
                         new StartSubCommand(sender, label, args);
                         break;
                     case "stop":
                         new StopSubCommand(sender, label, args);
+                        break;
+                    default:
+                        printHelpMessage((Player) sender);
                         break;
                 }
             }

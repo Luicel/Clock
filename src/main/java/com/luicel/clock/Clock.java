@@ -1,5 +1,6 @@
 package com.luicel.clock;
 
+import com.luicel.clock.annotations.FileDirectory;
 import com.luicel.clock.commands.Commands;
 import com.luicel.clock.files.Files;
 import org.bukkit.configuration.InvalidConfigurationException;
@@ -42,10 +43,11 @@ public final class Clock extends JavaPlugin {
     public void registerFiles() {
         new Reflections("com.luicel.clock.files").getSubTypesOf(Files.class).forEach(file -> {
             try {
-                Constructor constructor = file.getConstructor(String.class);
-                String name = file.getSimpleName().replace("File", "").toLowerCase() + ".yml";
+                Constructor constructor = file.getConstructor(String.class, String.class);
+                String fileName = file.getSimpleName().replace("File", "").toLowerCase() + ".yml";
+                String directory = file.getAnnotation(FileDirectory.class).value();
                 constructor.setAccessible(true);
-                constructor.newInstance(name);
+                constructor.newInstance(fileName, directory);
             } catch (InstantiationException | InvocationTargetException | NoSuchMethodException | IllegalAccessException e) {
                 e.printStackTrace();
             }

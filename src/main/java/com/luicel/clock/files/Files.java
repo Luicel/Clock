@@ -24,7 +24,6 @@ public class Files {
         File dataDirectory = new File(Clock.getInstance().getDataFolder(), "data");
         if (!dataDirectory.exists())
             dataDirectory.mkdirs();
-        // TODO move data files to data directory, but currently I have no idea how to do that
 
         File file = Files.getFile(fileName);
         if (!file.exists())

@@ -5,7 +5,7 @@ import com.luicel.clock.annotations.ArgumentsText;
 import com.luicel.clock.annotations.HelpOrder;
 import org.bukkit.command.CommandSender;
 
-@HelpOrder(4)
+@HelpOrder(5)
 @ArgumentsText("<name>")
 public class StopSubCommand extends SubCommands {
     public StopSubCommand(CommandSender sender, String label, String[] args) {

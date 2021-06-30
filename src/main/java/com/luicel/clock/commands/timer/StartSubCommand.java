@@ -6,7 +6,7 @@ import com.luicel.clock.annotations.HelpOrder;
 import com.luicel.clock.utils.ChatUtils;
 import org.bukkit.command.CommandSender;
 
-@HelpOrder(3)
+@HelpOrder(4)
 @ArgumentsText("<name>")
 public class StartSubCommand extends SubCommands {
     public StartSubCommand(CommandSender sender, String label, String[] args) {
