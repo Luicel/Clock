@@ -1,6 +1,7 @@
 package com.luicel.clock.files;
 
 import com.luicel.clock.annotations.FileDirectory;
+import com.luicel.clock.models.Timer;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -37,7 +38,12 @@ public class TimerFile extends Files {
     }
 
     // TODO Once timer model is done, replace String with Timer
-    public static List<String> getTimers() {
-        return new ArrayList<String>(ymlConfig.getConfigurationSection("timer").getKeys(false));
+    public static List<Timer> getTimers() {
+        List<Timer> timers = new ArrayList<>();
+        for (String timerName : ymlConfig.getConfigurationSection("timer").getKeys(false)) {
+            // TODO grab seconds from config
+            timers.add(new Timer(timerName, 0));
+        }
+        return timers;
     }
 }
