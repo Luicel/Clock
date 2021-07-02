@@ -11,7 +11,7 @@ import org.bukkit.command.CommandSender;
 import java.io.IOException;
 
 @HelpOrder(1)
-@ArgumentsText("<name>")
+@ArgumentsText("<name> <seconds>")
 public class CreateSubCommand extends SubCommands {
     public CreateSubCommand(CommandSender sender, String label, String[] args) {
         super(sender, label, args);
@@ -19,27 +19,31 @@ public class CreateSubCommand extends SubCommands {
 
     @Override
     protected void execute() {
-        if (getArgs().length <= 1) {
+        if (getArgs().length <= 2) {
             printSyntaxMessage(this);
         } else {
-            String timerName = getArgs()[1];
-            if (tryToCreateTimer(timerName)) {
-                sendMessage(getPrefix() + "Timer '&f" + timerName + "&7' successfully created!");
+            try {
+                Timer timer = new Timer(getArgs()[1], Integer.parseInt(getArgs()[2]));
+                if (tryToCreateTimer(timer)) {
+                    sendMessage(getPrefix() + "Timer '&f" + timer.getName() + "&7' successfully created!");
+                }
+            } catch (NumberFormatException e) {
+                sendMessage(PrefixUtils.getErrorPrefix() + "Invalid integer '&f" + getArgs()[2] + "&7'.");
             }
         }
     }
 
-    private boolean tryToCreateTimer(String timerName) {
-        if (TimerFile.doesTimerExist(timerName)) {
-            sendMessage(PrefixUtils.getErrorPrefix() + "A timer with the name '&f" + timerName + "&7' already exists!");
+    private boolean tryToCreateTimer(Timer timer) {
+        if (TimerFile.doesTimerExist(timer.getName())) {
+            sendMessage(PrefixUtils.getErrorPrefix() + "A timer with the name '&f" + timer.getName() + "&7' already exists!");
             return false;
         }
-        if (!Timer.isNameValid(timerName)) {
+        if (!Timer.isNameValid(timer.getName())) {
             sendMessage(PrefixUtils.getErrorPrefix() + "That name is invalid. Please only use alphanumeric characters, hyphens, and underscores.");
             return false;
         }
         try {
-            TimerFile.createTimer(timerName);
+            TimerFile.createTimer(timer);
         } catch (IOException e) {
             sendMessage(PrefixUtils.getInternalErrorPrefix() + "Check console for more information.");
             e.printStackTrace();

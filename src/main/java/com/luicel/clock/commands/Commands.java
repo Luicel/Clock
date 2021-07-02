@@ -18,15 +18,13 @@ public abstract class Commands implements CommandExecutor {
     }
 
     protected void printHelpMessage(Player player) {
-        List<String> texts = getListOfHelpMessagesTexts();
-
         player.sendMessage(ChatUtils.format("&c&lCOMMAND USAGE:"));
-        for (String text : texts) {
+        for (String text : getListOfHelpMessagesText()) {
             player.sendMessage(ChatUtils.format(String.format("&7/%s %s", commandName, text)));
         }
     }
 
-    protected List<String> getListOfHelpMessagesTexts() {
+    protected List<String> getListOfHelpMessagesText() {
         int amountOfSubCommands = new Reflections("com.luicel.clock.commands." + commandName).getSubTypesOf(SubCommands.class).size();
         List<String> texts = Arrays.asList(new String[amountOfSubCommands]);
         new Reflections("com.luicel.clock.commands." + commandName).getSubTypesOf(SubCommands.class).forEach(subCommand -> {

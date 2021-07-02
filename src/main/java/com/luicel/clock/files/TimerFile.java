@@ -15,8 +15,10 @@ public class TimerFile extends Files {
 
     // TODO change name and all instances from "timer" to "timers" and make paths depend on class name.
 
-    public static void createTimer(String timerName) throws IOException {
-        ymlConfig.createSection("timer." + timerName);
+    public static void createTimer(Timer timer) throws IOException {
+        ymlConfig.createSection("timer." + timer.getName());
+        ymlConfig.set("timer." + timer.getName() + ".seconds", timer.getSeconds());
+        ymlConfig.set("timer." + timer.getName() + ".state", timer.getState().name());
         ymlConfig.save(file);
     }
 
@@ -37,7 +39,6 @@ public class TimerFile extends Files {
         return false;
     }
 
-    // TODO Once timer model is done, replace String with Timer
     public static List<Timer> getTimers() {
         List<Timer> timers = new ArrayList<>();
         for (String timerName : ymlConfig.getConfigurationSection("timer").getKeys(false)) {

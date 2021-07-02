@@ -53,7 +53,7 @@ public abstract class SubCommands {
 
     // Helper methods -----
     public void printSyntaxMessage(SubCommands subCommand) {
-        sendMessage("&c&lINVALID SYNTAX:");
+        sendMessage("&c&lCOMMAND USAGE:");
 
         String subCommandName = subCommand.getClass().getSimpleName().replace("SubCommand", "").toLowerCase();
         String argumentsText = subCommand.getClass().getAnnotation(ArgumentsText.class).value();
