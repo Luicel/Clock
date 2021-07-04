@@ -3,6 +3,8 @@ package com.luicel.clock;
 import com.luicel.clock.annotations.FileDirectory;
 import com.luicel.clock.commands.Commands;
 import com.luicel.clock.files.Files;
+import com.luicel.clock.files.TimerFile;
+import com.luicel.clock.models.Timer;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.reflections.Reflections;
@@ -26,7 +28,7 @@ public final class Clock extends JavaPlugin {
 
     @Override
     public void onDisable() {
-
+        updateFileData();
     }
 
     private void registerCommands() {
@@ -40,10 +42,10 @@ public final class Clock extends JavaPlugin {
         });
     }
 
-    public void registerFiles() {
+    private void registerFiles() {
         new Reflections("com.luicel.clock.files").getSubTypesOf(Files.class).forEach(file -> {
             try {
-                Constructor constructor = file.getConstructor(String.class, String.class);
+                Constructor<?> constructor = file.getConstructor(String.class, String.class);
                 String fileName = file.getSimpleName().replace("File", "").toLowerCase() + ".yml";
                 String directory = file.getAnnotation(FileDirectory.class).value();
                 constructor.setAccessible(true);
@@ -52,6 +54,11 @@ public final class Clock extends JavaPlugin {
                 e.printStackTrace();
             }
         });
+    }
+
+    private void updateFileData() {
+        for (Timer timer : TimerFile.getTimers())
+            TimerFile.updateData(timer);
     }
 
     public static Clock getInstance() {

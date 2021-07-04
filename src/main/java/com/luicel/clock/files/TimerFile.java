@@ -19,8 +19,8 @@ public class TimerFile extends Files {
 
     private void registerTimers() {
         for (String timerName : ymlConfig.getConfigurationSection("timer").getKeys(false)) {
-            // TODO grab seconds from config
-            timers.add(new Timer(timerName, 0));
+            long seconds = ymlConfig.getLong("timer." + timerName + ".seconds");
+            timers.add(new Timer(timerName, seconds));
         }
     }
 
@@ -60,5 +60,10 @@ public class TimerFile extends Files {
             return false;
         }
         return false;
+    }
+
+    public static void updateData(Timer timer) {
+        ymlConfig.set("timer." + timer.getName() + ".seconds", timer.getSeconds());
+        ymlConfig.set("timer." + timer.getName() + ".state", timer.getState().name());
     }
 }
