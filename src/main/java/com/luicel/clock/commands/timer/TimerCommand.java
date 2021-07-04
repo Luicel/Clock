@@ -1,9 +1,13 @@
 package com.luicel.clock.commands.timer;
 
 import com.luicel.clock.commands.Commands;
+import com.luicel.clock.commands.SubCommands;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 
 public class TimerCommand extends Commands {
     @Override
@@ -12,25 +16,12 @@ public class TimerCommand extends Commands {
             if (args.length == 0 || (args[0].equalsIgnoreCase("help"))) {
                 printHelpMessage((Player) sender);
             } else {
-                switch (args[0].toLowerCase()) {
-                    case "create":
-                        new CreateSubCommand(sender, label, args);
-                        break;
-                    case "delete":
-                        new DeleteSubCommand(sender, label, args);
-                        break;
-                    case "list":
-                        new ListSubCommand(sender, label, args);
-                        break;
-                    case "start":
-                        new StartSubCommand(sender, label, args);
-                        break;
-                    case "stop":
-                        new StopSubCommand(sender, label, args);
-                        break;
-                    default:
-                        printHelpMessage((Player) sender);
-                        break;
+                try {
+                    Class<? extends SubCommands> subCommandClass = subCommandClasses.get(args[0]);
+                    Constructor<?> constructor = subCommandClass.getConstructor(CommandSender.class, String.class, String[].class);
+                    constructor.newInstance(sender, label, args);
+                } catch (NoSuchMethodException | IllegalAccessException | InstantiationException | InvocationTargetException e) {
+                    e.printStackTrace();
                 }
             }
         }
