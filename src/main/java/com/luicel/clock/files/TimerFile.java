@@ -1,7 +1,10 @@
 package com.luicel.clock.files;
 
+import com.luicel.clock.Clock;
 import com.luicel.clock.annotations.FileDirectory;
 import com.luicel.clock.models.Timer;
+import com.luicel.clock.runnables.TimerRunnable;
+import org.bukkit.Bukkit;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -18,9 +21,14 @@ public class TimerFile extends Files {
     }
 
     private void registerTimers() {
-        for (String timerName : ymlConfig.getConfigurationSection("timer").getKeys(false)) {
-            long seconds = ymlConfig.getLong("timer." + timerName + ".seconds");
-            timers.add(new Timer(timerName, seconds));
+        try {
+            for (String timerName : ymlConfig.getConfigurationSection("timer").getKeys(false)) {
+                int seconds = ymlConfig.getInt("timer." + timerName + ".seconds");
+                Timer timer = new Timer(timerName, seconds);
+                timers.add(timer);
+            }
+        } catch (NullPointerException e) {
+            Bukkit.getConsoleSender().sendMessage("[Clock] No timers detected. If none exist, please ignore this.");
         }
     }
 
@@ -63,7 +71,12 @@ public class TimerFile extends Files {
     }
 
     public static void updateData(Timer timer) {
-        ymlConfig.set("timer." + timer.getName() + ".seconds", timer.getSeconds());
-        ymlConfig.set("timer." + timer.getName() + ".state", timer.getState().name());
+        try {
+            ymlConfig.set("timer." + timer.getName() + ".seconds", timer.getSeconds());
+            ymlConfig.set("timer." + timer.getName() + ".state", timer.getState().name());
+            ymlConfig.save(file);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

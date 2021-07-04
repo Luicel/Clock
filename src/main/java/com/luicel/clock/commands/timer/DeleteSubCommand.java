@@ -4,6 +4,7 @@ import com.luicel.clock.commands.SubCommands;
 import com.luicel.clock.annotations.ArgumentsText;
 import com.luicel.clock.annotations.HelpOrder;
 import com.luicel.clock.files.TimerFile;
+import com.luicel.clock.models.Timer;
 import com.luicel.clock.utils.PrefixUtils;
 import org.bukkit.command.CommandSender;
 
@@ -23,7 +24,7 @@ public class DeleteSubCommand extends SubCommands {
         } else {
             String timerName = getArgs()[1];
             if (tryToDeleteTimer(timerName)) {
-                sendMessage(getPrefix() + "Timer '&f" + timerName + "&7' successfully deleted!");
+                sendMessage(Timer.getPrefix() + "Timer '&f" + timerName + "&7' successfully deleted!");
             }
         }
     }

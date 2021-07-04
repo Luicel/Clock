@@ -4,13 +4,13 @@ import com.luicel.clock.utils.ChatUtils;
 
 public class Timer {
     private final String name;
-    private double seconds;
+    private int seconds;
     private boolean isPaused;
 
     public enum State { ACTIVE, INACTIVE, PAUSED }
     private State state;
 
-    public Timer(String name, long seconds) {
+    public Timer(String name, int seconds) {
         this.name = name;
         this.seconds = seconds;
         this.isPaused = false;
@@ -21,11 +21,11 @@ public class Timer {
         return name;
     }
 
-    public void setSeconds(double seconds) {
+    public void setSeconds(int seconds) {
         this.seconds = seconds;
     }
 
-    public double getSeconds() {
+    public int getSeconds() {
         return seconds;
     }
 
@@ -47,9 +47,13 @@ public class Timer {
 
     public String getFormattedDisplay() {
         // TODO grab from config to properly format
-        return ChatUtils.format("&f00:00:00");
+        return ChatUtils.format("&f00:00:" + seconds);
     }
 
+    public static String getPrefix() {
+        return ChatUtils.format("&b&lTIMER! &7");
+    }
+    
     public static boolean isNameValid(String name) {
         // TODO
         return true;

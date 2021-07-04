@@ -25,7 +25,7 @@ public class CreateSubCommand extends SubCommands {
             try {
                 Timer timer = new Timer(getArgs()[1], Integer.parseInt(getArgs()[2]));
                 if (tryToCreateTimer(timer)) {
-                    sendMessage(getPrefix() + "Timer '&f" + timer.getName() + "&7' successfully created!");
+                    sendMessage(Timer.getPrefix() + "Timer '&f" + timer.getName() + "&7' successfully created!");
                 }
             } catch (NumberFormatException e) {
                 sendMessage(PrefixUtils.getErrorPrefix() + "Invalid integer '&f" + getArgs()[2] + "&7'.");
