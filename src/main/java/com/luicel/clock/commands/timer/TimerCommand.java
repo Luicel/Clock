@@ -12,19 +12,8 @@ import java.lang.reflect.InvocationTargetException;
 public class TimerCommand extends Commands {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        if (command.getName().equalsIgnoreCase(commandName)) {
-            if (args.length == 0 || (args[0].equalsIgnoreCase("help"))) {
-                printHelpMessage((Player) sender);
-            } else {
-                try {
-                    Class<? extends SubCommands> subCommandClass = subCommandClasses.get(args[0]);
-                    Constructor<?> constructor = subCommandClass.getConstructor(CommandSender.class, String.class, String[].class);
-                    constructor.newInstance(sender, label, args);
-                } catch (NoSuchMethodException | IllegalAccessException | InstantiationException | InvocationTargetException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
+        if (command.getName().equalsIgnoreCase(commandName))
+            executeCommand(sender, command, label, args);
         return true;
     }
 }

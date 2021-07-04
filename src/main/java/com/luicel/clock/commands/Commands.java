@@ -4,6 +4,7 @@ import com.luicel.clock.annotations.ArgumentsText;
 import com.luicel.clock.annotations.FileDirectory;
 import com.luicel.clock.annotations.HelpOrder;
 import com.luicel.clock.utils.ChatUtils;
+import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -31,6 +32,20 @@ public abstract class Commands implements CommandExecutor {
 
             subCommandClasses.put(subCommandName, subCommand);
         });
+    }
+
+    protected void executeCommand(CommandSender sender, Command command, String label, String[] args) {
+        if (args.length == 0 || (args[0].equalsIgnoreCase("help"))) {
+            printHelpMessage((Player) sender);
+        } else {
+            try {
+                Class<? extends SubCommands> subCommandClass = subCommandClasses.get(args[0]);
+                Constructor<?> constructor = subCommandClass.getConstructor(CommandSender.class, String.class, String[].class);
+                constructor.newInstance(sender, label, args);
+            } catch (NoSuchMethodException | IllegalAccessException | InstantiationException | InvocationTargetException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     protected void printHelpMessage(Player player) {
