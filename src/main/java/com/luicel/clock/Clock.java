@@ -5,6 +5,9 @@ import com.luicel.clock.commands.Commands;
 import com.luicel.clock.files.Files;
 import com.luicel.clock.files.TimersFile;
 import com.luicel.clock.models.Timer;
+import org.bukkit.configuration.serialization.ConfigurationSerializable;
+import org.bukkit.configuration.serialization.ConfigurationSerialization;
+import org.bukkit.configuration.serialization.SerializableAs;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.reflections.Reflections;
 
@@ -18,6 +21,7 @@ public final class Clock extends JavaPlugin {
     public void onEnable() {
         instance = this;
 
+        registerSerializables();
         registerCommands();
         registerFiles();
     }
@@ -25,6 +29,13 @@ public final class Clock extends JavaPlugin {
     @Override
     public void onDisable() {
         updateFileData();
+    }
+
+    private void registerSerializables() {
+        new Reflections("com.luicel.clock.models").getSubTypesOf(ConfigurationSerializable.class).forEach(model -> {
+            String alias = model.getAnnotation(SerializableAs.class).value();
+            ConfigurationSerialization.registerClass(model, alias);
+        });
     }
 
     private void registerCommands() {
@@ -53,8 +64,7 @@ public final class Clock extends JavaPlugin {
     }
 
     private void updateFileData() {
-        for (Timer timer : TimersFile.getTimers())
-            TimersFile.updateData(timer);
+        TimersFile.getTimers().forEach(Timer::save);
     }
 
     public static Clock getInstance() {

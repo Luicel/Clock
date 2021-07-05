@@ -1,18 +1,41 @@
 package com.luicel.clock.models;
 
+import com.luicel.clock.files.TimersFile;
 import com.luicel.clock.utils.ChatUtils;
+import org.bukkit.configuration.ConfigurationSection;
+import org.bukkit.configuration.serialization.ConfigurationSerializable;
+import org.bukkit.configuration.serialization.SerializableAs;
 
-public class Timer {
-    private final String name;
-    private int seconds;
+import java.io.IOException;
+import java.util.LinkedHashMap;
+import java.util.Map;
+
+@SerializableAs("Timer")
+public class Timer implements ConfigurationSerializable {
+    private String name = "";
+    private int seconds = 0;
 
     public enum State { ACTIVE, INACTIVE, PAUSED }
-    private State state;
+    private State state = State.INACTIVE;
 
     public Timer(String name, int seconds) {
         this.name = name;
         this.seconds = seconds;
-        this.state = State.INACTIVE;
+    }
+
+    public Timer(Map<String, Object> map) {
+        this.name = map.getOrDefault("name", name).toString();
+        this.seconds = Integer.parseInt(map.getOrDefault("seconds", seconds).toString());
+        this.state = State.valueOf(map.getOrDefault("state", state.name()).toString());
+    }
+
+    @Override
+    public Map<String, Object> serialize() {
+        return new LinkedHashMap<String, Object>(){{
+            put("name", name);
+            put("seconds", seconds);
+            put("state", state.name());
+        }};
     }
 
     public String getName() {
@@ -38,6 +61,15 @@ public class Timer {
     public String getFormattedDisplay() {
         // TODO grab from config to properly format
         return ChatUtils.format("&f00:00:" + seconds);
+    }
+
+    public void save() {
+        TimersFile.ymlConfig.set("timers." + name, this);
+        try {
+            TimersFile.ymlConfig.save(TimersFile.file);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public static String getPrefix() {

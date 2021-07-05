@@ -42,13 +42,8 @@ public class CreateSubCommand extends SubCommands {
             sendMessage(PrefixUtils.getErrorPrefix() + "That name is invalid. Please only use alphanumeric characters, hyphens, and underscores.");
             return false;
         }
-        try {
-            TimersFile.createTimer(timer);
-        } catch (IOException e) {
-            sendMessage(PrefixUtils.getInternalErrorPrefix() + "Check console for more information.");
-            e.printStackTrace();
-            return false;
-        }
+        timer.save();
+        TimersFile.getTimers().add(timer);
         return true;
     }
 }

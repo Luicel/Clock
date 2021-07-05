@@ -22,9 +22,7 @@ public class TimersFile extends Files {
     private void registerTimers() {
         try {
             for (String timerName : ymlConfig.getConfigurationSection("timers").getKeys(false)) {
-                int seconds = ymlConfig.getInt("timers." + timerName + ".seconds");
-                Timer timer = new Timer(timerName, seconds);
-                timers.add(timer);
+                timers.add((Timer) ymlConfig.get("timers." + timerName));
             }
         } catch (NullPointerException e) {
             Bukkit.getConsoleSender().sendMessage("[Clock] No timers detected. If none exist, please ignore this.");
@@ -43,14 +41,6 @@ public class TimersFile extends Files {
         return null;
     }
 
-    public static void createTimer(Timer timer) throws IOException {
-        ymlConfig.createSection("timers." + timer.getName());
-        ymlConfig.set("timers." + timer.getName() + ".seconds", timer.getSeconds());
-        ymlConfig.set("timers." + timer.getName() + ".state", timer.getState().name());
-        ymlConfig.save(file);
-        timers.add(timer);
-    }
-
     public static void deleteTimer(String timerName) throws IOException {
         ymlConfig.set("timers." + timerName, null);
         ymlConfig.save(file);
@@ -58,24 +48,6 @@ public class TimersFile extends Files {
     }
 
     public static boolean doesTimerExist(String timerName) {
-        try {
-            for (String timer : ymlConfig.getConfigurationSection("timers").getKeys(false)) {
-                if (timer.equalsIgnoreCase(timerName))
-                    return true;
-            }
-        } catch (NullPointerException e) {
-            return false;
-        }
-        return false;
-    }
-
-    public static void updateData(Timer timer) {
-        try {
-            ymlConfig.set("timers." + timer.getName() + ".seconds", timer.getSeconds());
-            ymlConfig.set("timers." + timer.getName() + ".state", timer.getState().name());
-            ymlConfig.save(file);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        return timers.stream().anyMatch(timer -> timer.getName().equalsIgnoreCase(timerName));
     }
 }
