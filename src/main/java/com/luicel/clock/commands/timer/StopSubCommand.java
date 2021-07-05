@@ -17,9 +17,8 @@ public class StopSubCommand extends SubCommands {
 
     @Override
     public void execute() {
-        String timerName = getArgs()[1];
-        if (TimersFile.doesTimerExist(timerName)) {
-            Timer timer = TimersFile.getTimer(timerName);
+        Timer timer = TimersFile.getTimer(getArgs()[1]);
+        if (timer != null) {
             tryToStopTimer(timer);
         } else {
             sendMessage(PrefixUtils.getErrorPrefix() + "No timer with the name '&f" + getArgs()[1] + "&7' exists!");
