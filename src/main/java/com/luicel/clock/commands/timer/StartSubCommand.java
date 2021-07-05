@@ -4,10 +4,9 @@ import com.luicel.clock.Clock;
 import com.luicel.clock.commands.SubCommands;
 import com.luicel.clock.annotations.ArgumentsText;
 import com.luicel.clock.annotations.HelpOrder;
-import com.luicel.clock.files.TimerFile;
+import com.luicel.clock.files.TimersFile;
 import com.luicel.clock.models.Timer;
 import com.luicel.clock.runnables.TimerRunnable;
-import com.luicel.clock.utils.ChatUtils;
 import com.luicel.clock.utils.PrefixUtils;
 import org.bukkit.command.CommandSender;
 
@@ -21,8 +20,8 @@ public class StartSubCommand extends SubCommands {
     @Override
     public void execute() {
         String timerName = getArgs()[1];
-        if (TimerFile.doesTimerExist(timerName)) {
-            Timer timer = TimerFile.getTimer(timerName);
+        if (TimersFile.doesTimerExist(timerName)) {
+            Timer timer = TimersFile.getTimer(timerName);
             tryToStartTimer(timer);
         } else {
             sendMessage(PrefixUtils.getErrorPrefix() + "No timer with the name '&f" + getArgs()[1] + "&7' exists!");

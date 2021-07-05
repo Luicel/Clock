@@ -34,17 +34,25 @@ public abstract class Commands implements CommandExecutor {
         });
     }
 
-    protected void executeCommand(CommandSender sender, Command command, String label, String[] args) {
-        if (args.length == 0 || (args[0].equalsIgnoreCase("help"))) {
-            printHelpMessage((Player) sender);
-        } else {
-            try {
-                Class<? extends SubCommands> subCommandClass = subCommandClasses.get(args[0]);
-                Constructor<?> constructor = subCommandClass.getConstructor(CommandSender.class, String.class, String[].class);
-                constructor.newInstance(sender, label, args);
-            } catch (NoSuchMethodException | IllegalAccessException | InstantiationException | InvocationTargetException e) {
-                e.printStackTrace();
+    @Override
+    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+        if (command.getName().equalsIgnoreCase(commandName))
+            if (args.length == 0 || (args[0].equalsIgnoreCase("help"))) {
+                printHelpMessage((Player) sender);
+            } else {
+                executeCommand(sender, command, label, args);
             }
+        return true;
+    }
+
+    protected void executeCommand(CommandSender sender, Command command, String label, String[] args) {
+        try {
+            Class<? extends SubCommands> subCommandClass = subCommandClasses.get(args[0]);
+            Constructor<?> constructor = subCommandClass.getConstructor(CommandSender.class, String.class, String[].class);
+            constructor.setAccessible(true);
+            constructor.newInstance(sender, label, args);
+        } catch (NoSuchMethodException | IllegalAccessException | InstantiationException | InvocationTargetException e) {
+            e.printStackTrace();
         }
     }
 

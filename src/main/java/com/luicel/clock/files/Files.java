@@ -1,6 +1,7 @@
 package com.luicel.clock.files;
 
 import com.luicel.clock.Clock;
+import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.*;
@@ -9,10 +10,11 @@ public class Files {
     public static YamlConfiguration ymlConfig;
     public static File file;
 
-    public static String DATA_FOLDER = Clock.getInstance().getDataFolder() + "\\";
+    public static String FOLDER = Clock.getInstance().getDataFolder() + "\\";
 
     public Files(String fileName, String directory) {
-        DATA_FOLDER += directory + "\\";
+        if (directory.length() > 0)
+            FOLDER += directory + "\\";
         ymlConfig = createConfig(fileName);
         file = getFile(fileName);
     }
@@ -33,13 +35,13 @@ public class Files {
     }
 
     public static File getFile(String path) {
-        return new File(DATA_FOLDER + path);
+        return new File(FOLDER + path);
     }
 
     private File copyDefault(String fileName) {
         try {
             BufferedReader reader = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream("/" + fileName)));
-            BufferedWriter writer = new BufferedWriter(new FileWriter(DATA_FOLDER + fileName));
+            BufferedWriter writer = new BufferedWriter(new FileWriter(FOLDER + fileName));
 
             String line;
             while ((line = reader.readLine()) != null) {

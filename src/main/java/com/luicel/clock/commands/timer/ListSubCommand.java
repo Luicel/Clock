@@ -3,7 +3,7 @@ package com.luicel.clock.commands.timer;
 import com.luicel.clock.annotations.ArgumentsText;
 import com.luicel.clock.annotations.HelpOrder;
 import com.luicel.clock.commands.SubCommands;
-import com.luicel.clock.files.TimerFile;
+import com.luicel.clock.files.TimersFile;
 import com.luicel.clock.models.Timer;
 import com.luicel.clock.utils.ChatUtils;
 import net.md_5.bungee.api.chat.BaseComponent;
@@ -27,7 +27,7 @@ public class ListSubCommand extends SubCommands {
     }
 
     private void printTimers() {
-        List<Timer> timers = TimerFile.getTimers();
+        List<Timer> timers = TimersFile.getTimers();
 
         sendMessage(String.format("&b&lTIMERS: &f(%s)", timers.size()));
         for (Timer timer : timers) {

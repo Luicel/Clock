@@ -3,7 +3,7 @@ package com.luicel.clock.commands.timer;
 import com.luicel.clock.commands.SubCommands;
 import com.luicel.clock.annotations.ArgumentsText;
 import com.luicel.clock.annotations.HelpOrder;
-import com.luicel.clock.files.TimerFile;
+import com.luicel.clock.files.TimersFile;
 import com.luicel.clock.models.Timer;
 import com.luicel.clock.utils.PrefixUtils;
 import org.bukkit.command.CommandSender;
@@ -30,12 +30,12 @@ public class DeleteSubCommand extends SubCommands {
     }
 
     private boolean tryToDeleteTimer(String timerName) {
-        if (!TimerFile.doesTimerExist(timerName)) {
+        if (!TimersFile.doesTimerExist(timerName)) {
             sendMessage(PrefixUtils.getErrorPrefix() + "No timer with the name '&f" + timerName + "&7' exists!");
             return false;
         }
         try {
-            TimerFile.deleteTimer(timerName);
+            TimersFile.deleteTimer(timerName);
         } catch (IOException e) {
             sendMessage(PrefixUtils.getInternalErrorPrefix() + "Check console for more information.");
             e.printStackTrace();

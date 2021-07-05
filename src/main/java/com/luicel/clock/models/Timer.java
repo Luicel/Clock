@@ -5,7 +5,6 @@ import com.luicel.clock.utils.ChatUtils;
 public class Timer {
     private final String name;
     private int seconds;
-    private boolean isPaused;
 
     public enum State { ACTIVE, INACTIVE, PAUSED }
     private State state;
@@ -13,7 +12,6 @@ public class Timer {
     public Timer(String name, int seconds) {
         this.name = name;
         this.seconds = seconds;
-        this.isPaused = false;
         this.state = State.INACTIVE;
     }
 
@@ -27,14 +25,6 @@ public class Timer {
 
     public int getSeconds() {
         return seconds;
-    }
-
-    public boolean isPaused() {
-        return isPaused;
-    }
-
-    public void setPaused(boolean paused) {
-        isPaused = paused;
     }
 
     public State getState() {

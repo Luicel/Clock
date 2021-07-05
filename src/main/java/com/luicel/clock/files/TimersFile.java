@@ -11,19 +11,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 @FileDirectory("data")
-public class TimerFile extends Files {
-    private static List<Timer> timers = new ArrayList<>();
+public class TimersFile extends Files {
+    private static final List<Timer> timers = new ArrayList<>();
 
-    // TODO change name and all instances from "timer" to "timers" and make paths depend on class name.
-    public TimerFile(String fileName, String directory) {
+    public TimersFile(String fileName, String directory) {
         super(fileName, directory);
         registerTimers();
     }
 
     private void registerTimers() {
         try {
-            for (String timerName : ymlConfig.getConfigurationSection("timer").getKeys(false)) {
-                int seconds = ymlConfig.getInt("timer." + timerName + ".seconds");
+            for (String timerName : ymlConfig.getConfigurationSection("timers").getKeys(false)) {
+                int seconds = ymlConfig.getInt("timers." + timerName + ".seconds");
                 Timer timer = new Timer(timerName, seconds);
                 timers.add(timer);
             }
@@ -45,22 +44,22 @@ public class TimerFile extends Files {
     }
 
     public static void createTimer(Timer timer) throws IOException {
-        ymlConfig.createSection("timer." + timer.getName());
-        ymlConfig.set("timer." + timer.getName() + ".seconds", timer.getSeconds());
-        ymlConfig.set("timer." + timer.getName() + ".state", timer.getState().name());
+        ymlConfig.createSection("timers." + timer.getName());
+        ymlConfig.set("timers." + timer.getName() + ".seconds", timer.getSeconds());
+        ymlConfig.set("timers." + timer.getName() + ".state", timer.getState().name());
         ymlConfig.save(file);
         timers.add(timer);
     }
 
     public static void deleteTimer(String timerName) throws IOException {
-        ymlConfig.set("timer." + timerName, null);
+        ymlConfig.set("timers." + timerName, null);
         ymlConfig.save(file);
         timers.remove(getTimer(timerName));
     }
 
     public static boolean doesTimerExist(String timerName) {
         try {
-            for (String timer : ymlConfig.getConfigurationSection("timer").getKeys(false)) {
+            for (String timer : ymlConfig.getConfigurationSection("timers").getKeys(false)) {
                 if (timer.equalsIgnoreCase(timerName))
                     return true;
             }
@@ -72,8 +71,8 @@ public class TimerFile extends Files {
 
     public static void updateData(Timer timer) {
         try {
-            ymlConfig.set("timer." + timer.getName() + ".seconds", timer.getSeconds());
-            ymlConfig.set("timer." + timer.getName() + ".state", timer.getState().name());
+            ymlConfig.set("timers." + timer.getName() + ".seconds", timer.getSeconds());
+            ymlConfig.set("timers." + timer.getName() + ".state", timer.getState().name());
             ymlConfig.save(file);
         } catch (IOException e) {
             e.printStackTrace();

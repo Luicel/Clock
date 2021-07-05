@@ -3,7 +3,7 @@ package com.luicel.clock.commands.timer;
 import com.luicel.clock.commands.SubCommands;
 import com.luicel.clock.annotations.ArgumentsText;
 import com.luicel.clock.annotations.HelpOrder;
-import com.luicel.clock.files.TimerFile;
+import com.luicel.clock.files.TimersFile;
 import com.luicel.clock.models.Timer;
 import com.luicel.clock.utils.PrefixUtils;
 import org.bukkit.command.CommandSender;
@@ -34,7 +34,7 @@ public class CreateSubCommand extends SubCommands {
     }
 
     private boolean tryToCreateTimer(Timer timer) {
-        if (TimerFile.doesTimerExist(timer.getName())) {
+        if (TimersFile.doesTimerExist(timer.getName())) {
             sendMessage(PrefixUtils.getErrorPrefix() + "A timer with the name '&f" + timer.getName() + "&7' already exists!");
             return false;
         }
@@ -43,7 +43,7 @@ public class CreateSubCommand extends SubCommands {
             return false;
         }
         try {
-            TimerFile.createTimer(timer);
+            TimersFile.createTimer(timer);
         } catch (IOException e) {
             sendMessage(PrefixUtils.getInternalErrorPrefix() + "Check console for more information.");
             e.printStackTrace();
