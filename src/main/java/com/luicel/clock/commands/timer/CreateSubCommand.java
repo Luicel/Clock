@@ -22,28 +22,15 @@ public class CreateSubCommand extends SubCommands {
         if (getArgs().length <= 2) {
             printSyntaxMessage(this);
         } else {
-            try {
-                Timer timer = new Timer(getArgs()[1], Integer.parseInt(getArgs()[2]));
-                if (tryToCreateTimer(timer)) {
-                    sendMessage(Timer.getPrefix() + "Timer '&f" + timer.getName() + "&7' successfully created!");
-                }
-            } catch (NumberFormatException e) {
-                sendMessage(PrefixUtils.getErrorPrefix() + "Invalid integer '&f" + getArgs()[2] + "&7'.");
+            Timer timer = TimersFile.getTimer(getArgs()[1]);
+            if (timer == null) {
+                sendMessage(PrefixUtils.getErrorPrefix() + "A timer with the name '&f" + getArgs()[1] + "&7' already exists!");
+            } else if (!Timer.isNameValid(timer.getName())) {
+                sendMessage(PrefixUtils.getErrorPrefix() + "That name is invalid. Please only use alphanumeric characters, hyphens, and underscores.");
+            } else {
+                timer.save();
+                sendMessage(PrefixUtils.getTimerPrefix() + "Timer '&f" + timer.getName() + "&7' successfully created!");
             }
         }
-    }
-
-    private boolean tryToCreateTimer(Timer timer) {
-        if (TimersFile.doesTimerExist(timer.getName())) {
-            sendMessage(PrefixUtils.getErrorPrefix() + "A timer with the name '&f" + timer.getName() + "&7' already exists!");
-            return false;
-        }
-        if (!Timer.isNameValid(timer.getName())) {
-            sendMessage(PrefixUtils.getErrorPrefix() + "That name is invalid. Please only use alphanumeric characters, hyphens, and underscores.");
-            return false;
-        }
-        timer.save();
-        TimersFile.getTimers().add(timer);
-        return true;
     }
 }

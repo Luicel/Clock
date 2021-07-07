@@ -5,6 +5,7 @@ import com.luicel.clock.annotations.FileDirectory;
 import com.luicel.clock.models.Timer;
 import com.luicel.clock.runnables.TimerRunnable;
 import org.bukkit.Bukkit;
+import org.bukkit.configuration.InvalidConfigurationException;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -19,12 +20,13 @@ public class TimersFile extends Files {
         registerTimers();
     }
 
-    private void registerTimers() {
+    public static void registerTimers() {
         try {
+            ymlConfig.load(file);
             for (String timerName : ymlConfig.getConfigurationSection("timers").getKeys(false)) {
                 timers.add((Timer) ymlConfig.get("timers." + timerName));
             }
-        } catch (NullPointerException e) {
+        } catch (NullPointerException | IOException | InvalidConfigurationException e) {
             Bukkit.getConsoleSender().sendMessage("[Clock] No timers detected. If none exist, please ignore this.");
         }
     }
@@ -45,9 +47,5 @@ public class TimersFile extends Files {
         ymlConfig.set("timers." + timerName, null);
         ymlConfig.save(file);
         timers.remove(getTimer(timerName));
-    }
-
-    public static boolean doesTimerExist(String timerName) {
-        return timers.stream().anyMatch(timer -> timer.getName().equalsIgnoreCase(timerName));
     }
 }

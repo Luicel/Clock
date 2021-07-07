@@ -37,7 +37,7 @@ public class InfoSubCommand extends SubCommands {
         TextComponent message = new TextComponent(ChatUtils.format("&fhttps://github.com/Luicel/Clock"));
         message.setHoverEvent(new HoverEvent(
                 HoverEvent.Action.SHOW_TEXT,
-                new ComponentBuilder(ChatUtils.format("&aClick to visit.")).create())
+                new ComponentBuilder(ChatUtils.format("&fClick to visit!")).create())
         );
         message.setClickEvent(new ClickEvent(
                 ClickEvent.Action.OPEN_URL,

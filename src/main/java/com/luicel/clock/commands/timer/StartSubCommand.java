@@ -20,10 +20,10 @@ public class StartSubCommand extends SubCommands {
     @Override
     public void execute() {
         Timer timer = TimersFile.getTimer(getArgs()[1]);
-        if (timer != null) {
-            tryToStartTimer(timer);
-        } else {
+        if (timer == null) {
             sendMessage(PrefixUtils.getErrorPrefix() + "No timer with the name '&f" + getArgs()[1] + "&7' exists!");
+        } else {
+            tryToStartTimer(timer);
         }
     }
 
@@ -38,8 +38,9 @@ public class StartSubCommand extends SubCommands {
                     break;
                 case INACTIVE: {
                     timer.setState(Timer.State.ACTIVE);
+                    timer.save();
                     new TimerRunnable(timer).runTaskTimer(Clock.getInstance(), 0, 20);
-                    sendMessage(Timer.getPrefix() + "Timer '&f" + timer.getName() + "&7' has been &astarted&7.");
+                    sendMessage(PrefixUtils.getTimerPrefix() + "Timer '&f" + timer.getName() + "&7' has been &astarted&7.");
                     break;
                 }
             }

@@ -70,10 +70,18 @@ public class Timer implements ConfigurationSerializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        if (!TimersFile.getTimers().contains(this))
+            TimersFile.getTimers().add(this);
     }
 
-    public static String getPrefix() {
-        return ChatUtils.format("&b&lTIMER! &7");
+    public void delete() {
+        TimersFile.ymlConfig.set("timers." + name, null);
+        try {
+            TimersFile.ymlConfig.save(TimersFile.file);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        TimersFile.getTimers().remove(this);
     }
     
     public static boolean isNameValid(String name) {

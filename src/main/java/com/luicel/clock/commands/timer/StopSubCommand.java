@@ -18,10 +18,10 @@ public class StopSubCommand extends SubCommands {
     @Override
     public void execute() {
         Timer timer = TimersFile.getTimer(getArgs()[1]);
-        if (timer != null) {
-            tryToStopTimer(timer);
-        } else {
+        if (timer == null) {
             sendMessage(PrefixUtils.getErrorPrefix() + "No timer with the name '&f" + getArgs()[1] + "&7' exists!");
+        } else {
+            tryToStopTimer(timer);
         }
     }
 
@@ -29,7 +29,8 @@ public class StopSubCommand extends SubCommands {
         switch (timer.getState()) {
             case ACTIVE: {
                 timer.setState(Timer.State.INACTIVE);
-                sendMessage(Timer.getPrefix() + "Timer '&f" + timer.getName() + "&7' has been &cstopped&7.");
+                timer.save();
+                sendMessage(PrefixUtils.getTimerPrefix() + "Timer '&f" + timer.getName() + "&7' has been &cstopped&7.");
                 break;
             }
             case PAUSED:

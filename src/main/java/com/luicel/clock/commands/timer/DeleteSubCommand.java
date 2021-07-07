@@ -22,25 +22,13 @@ public class DeleteSubCommand extends SubCommands {
         if (getArgs().length <= 1) {
             printSyntaxMessage(this);
         } else {
-            String timerName = getArgs()[1];
-            if (tryToDeleteTimer(timerName)) {
-                sendMessage(Timer.getPrefix() + "Timer '&f" + timerName + "&7' successfully deleted!");
+            Timer timer = TimersFile.getTimer(getArgs()[1]);
+            if (timer == null) {
+                sendMessage(PrefixUtils.getErrorPrefix() + "No timer with the name '&f" + getArgs()[1] + "&7' exists!");
+            } else {
+                timer.delete();
+                sendMessage(PrefixUtils.getTimerPrefix() + "Timer '&f" + timer.getName() + "&7' successfully deleted!");
             }
         }
-    }
-
-    private boolean tryToDeleteTimer(String timerName) {
-        if (!TimersFile.doesTimerExist(timerName)) {
-            sendMessage(PrefixUtils.getErrorPrefix() + "No timer with the name '&f" + timerName + "&7' exists!");
-            return false;
-        }
-        try {
-            TimersFile.deleteTimer(timerName);
-        } catch (IOException e) {
-            sendMessage(PrefixUtils.getInternalErrorPrefix() + "Check console for more information.");
-            e.printStackTrace();
-            return false;
-        }
-        return true;
     }
 }
