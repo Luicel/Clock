@@ -5,5 +5,9 @@ api-version: 1.16
 authors: [ Luicel ]
 
 commands:
+  clock:
+    usage: /<command>
   timer:
+    usage: /<command>
+  stopwatch:
     usage: /<command>
