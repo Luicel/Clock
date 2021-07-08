@@ -58,9 +58,18 @@ public class Timer implements ConfigurationSerializable {
         this.state = state;
     }
 
-    public String getFormattedDisplay() {
+    // TODO
+    public String getDisplayStatus() {
+        return "";
+    }
+
+    public String getDisplayFormat() {
         // TODO grab from config to properly format
         return ChatUtils.format("&f00:00:" + seconds);
+    }
+
+    public String getTimeRemaining() {
+        return "";
     }
 
     public void save() {

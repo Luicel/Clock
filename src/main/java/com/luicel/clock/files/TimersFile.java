@@ -43,9 +43,11 @@ public class TimersFile extends Files {
         return null;
     }
 
-    public static void deleteTimer(String timerName) throws IOException {
-        ymlConfig.set("timers." + timerName, null);
-        ymlConfig.save(file);
-        timers.remove(getTimer(timerName));
+    public static boolean doesTimerWithNameExist(String timerName) {
+        for (Timer timer : timers) {
+            if (timer.getName().equalsIgnoreCase(timerName))
+                return true;
+        }
+        return false;
     }
 }

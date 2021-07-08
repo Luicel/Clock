@@ -8,7 +8,7 @@ import com.luicel.clock.models.Timer;
 import com.luicel.clock.utils.PrefixUtils;
 import org.bukkit.command.CommandSender;
 
-@HelpOrder(5)
+@HelpOrder(6)
 @ArgumentsText("<name>")
 public class StopSubCommand extends SubCommands {
     public StopSubCommand(CommandSender sender, String label, String[] args) {

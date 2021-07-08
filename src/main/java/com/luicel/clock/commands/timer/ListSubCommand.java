@@ -14,7 +14,7 @@ import org.bukkit.command.CommandSender;
 
 import java.util.List;
 
-@HelpOrder(3)
+@HelpOrder(4)
 @ArgumentsText("")
 public class ListSubCommand extends SubCommands {
     public ListSubCommand(CommandSender sender, String label, String[] args) {
@@ -38,7 +38,7 @@ public class ListSubCommand extends SubCommands {
     }
 
     private BaseComponent[] createAndGetBaseComponent(Timer timer) {
-        String line1 = ChatUtils.format("&7Display: " + timer.getFormattedDisplay());
+        String line1 = ChatUtils.format("&7Display: " + timer.getDisplayFormat());
         String line2 = ChatUtils.format("&7State: " + getTimerStateAsString(timer));
         String text = line1 + "\n" + line2;
 
