@@ -27,7 +27,7 @@ public class TimersFile extends Files {
                 timers.add((Timer) ymlConfig.get("timers." + timerName));
             }
         } catch (NullPointerException | IOException | InvalidConfigurationException e) {
-            Bukkit.getConsoleSender().sendMessage("[Clock] No timers detected. If none exist, please ignore this.");
+            Bukkit.getLogger().info("[Clock] No timers detected. If none exist, please ignore this.");
         }
     }
 

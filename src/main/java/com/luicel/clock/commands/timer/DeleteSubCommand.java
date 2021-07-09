@@ -8,8 +8,6 @@ import com.luicel.clock.models.Timer;
 import com.luicel.clock.utils.PrefixUtils;
 import org.bukkit.command.CommandSender;
 
-import java.io.IOException;
-
 @HelpOrder(2)
 @ArgumentsText("<name>")
 public class DeleteSubCommand extends SubCommands {
@@ -26,9 +24,13 @@ public class DeleteSubCommand extends SubCommands {
             if (timer == null) {
                 sendMessage(PrefixUtils.getErrorPrefix() + "No timer with the name '&f" + getArgs()[1] + "&7' exists!");
             } else {
-                timer.delete();
-                sendMessage(PrefixUtils.getTimerPrefix() + "Timer '&f" + timer.getName() + "&7' successfully deleted!");
+                deleteTimer(timer);
             }
         }
+    }
+
+    private void deleteTimer(Timer timer) {
+        timer.delete();
+        sendMessage(PrefixUtils.getTimerPrefix() + "Timer '&f" + timer.getName() + "&7' successfully deleted!");
     }
 }

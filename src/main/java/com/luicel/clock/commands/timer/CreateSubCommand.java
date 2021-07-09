@@ -27,14 +27,18 @@ public class CreateSubCommand extends SubCommands {
             } else if (!Timer.isNameValid(getArgs()[1])) {
                 sendMessage(PrefixUtils.getErrorPrefix() + "That name is invalid. Please only use alphanumeric characters, hyphens, and underscores.");
             } else {
-                try {
-                    Timer timer = new Timer(getArgs()[1], Integer.parseInt(getArgs()[2]));
-                    timer.save();
-                    sendMessage(PrefixUtils.getTimerPrefix() + "Timer '&f" + timer.getName() + "&7' successfully created!");
-                } catch (NumberFormatException e) {
-                    sendMessage(PrefixUtils.getErrorPrefix() + "Invalid integer '&f" + getArgs()[2] + "&7'.");
-                }
+                createTimer();
             }
+        }
+    }
+
+    private void createTimer() {
+        try {
+            Timer timer = new Timer(getArgs()[1], Long.parseLong(getArgs()[2]));
+            timer.save();
+            sendMessage(PrefixUtils.getTimerPrefix() + "Timer '&f" + timer.getName() + "&7' successfully created!");
+        } catch (NumberFormatException e) {
+            sendMessage(PrefixUtils.getErrorPrefix() + "Invalid number '&f" + getArgs()[2] + "&7'.");
         }
     }
 }

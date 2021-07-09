@@ -13,12 +13,12 @@ import java.util.Map;
 @SerializableAs("Timer")
 public class Timer implements ConfigurationSerializable {
     private String name = "";
-    private int seconds = 0;
+    private long seconds = 0;
 
     public enum State { ACTIVE, INACTIVE }
     private State state = State.INACTIVE;
 
-    public Timer(String name, int seconds) {
+    public Timer(String name, long seconds) {
         this.name = name;
         this.seconds = seconds;
     }
@@ -42,11 +42,11 @@ public class Timer implements ConfigurationSerializable {
         return name;
     }
 
-    public void setSeconds(int seconds) {
+    public void setSeconds(long seconds) {
         this.seconds = seconds;
     }
 
-    public int getSeconds() {
+    public long getSeconds() {
         return seconds;
     }
 
@@ -87,20 +87,20 @@ public class Timer implements ConfigurationSerializable {
         final int SECONDS_IN_A_HOUR = 3600;
         final int SECONDS_IN_A_DAY = 86400;
         StringBuilder string = new StringBuilder();
-        int cacheSeconds = seconds;
+        long cacheSeconds = seconds;
 
         if (cacheSeconds / SECONDS_IN_A_DAY > 0 || string.length() > 0) {
-            int days = cacheSeconds / SECONDS_IN_A_DAY;
+            long days = cacheSeconds / SECONDS_IN_A_DAY;
             cacheSeconds %= SECONDS_IN_A_DAY;
             string.append(String.format("%s%sd ", (days < 10) ? "0" : "", days));
         }
         if (cacheSeconds / SECONDS_IN_A_HOUR > 0 || string.length() > 0) {
-            int hours = cacheSeconds / SECONDS_IN_A_HOUR;
+            long hours = cacheSeconds / SECONDS_IN_A_HOUR;
             cacheSeconds %= SECONDS_IN_A_HOUR;
             string.append(String.format("%s%sh ", (hours < 10) ? "0" : "", hours));
         }
         if (cacheSeconds / SECONDS_IN_A_MINUTE > 0 || string.length() > 0) {
-            int minutes = cacheSeconds / SECONDS_IN_A_MINUTE;
+            long minutes = cacheSeconds / SECONDS_IN_A_MINUTE;
             cacheSeconds %= SECONDS_IN_A_MINUTE;
             string.append(String.format("%s%sm ", (minutes < 10) ? "0" : "", minutes));
         }

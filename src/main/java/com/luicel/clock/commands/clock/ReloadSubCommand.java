@@ -23,7 +23,7 @@ public class ReloadSubCommand extends SubCommands {
     private void reloadConfigs() {
         // TODO add behavior for config option to disable using cached seconds
         // create map and store currently cached seconds
-        Map<String, Integer> map = new HashMap<>();
+        Map<String, Long> map = new HashMap<>();
         TimersFile.getTimers().forEach(timer ->
                 map.put(timer.getName(), timer.getSeconds())
         );

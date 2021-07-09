@@ -27,42 +27,42 @@ public class TimeSubCommand extends SubCommands {
                 try {
                     switch (getArgs()[2].toLowerCase()) {
                         case "add":
-                            addSecondsToTimer(timer, Integer.parseInt(getArgs()[3]));
+                            addSecondsToTimer(timer, Long.parseLong(getArgs()[3]));
                             break;
                         case "remove":
-                            removeSecondsFromTimer(timer, Integer.parseInt(getArgs()[3]));
+                            removeSecondsFromTimer(timer, Long.parseLong(getArgs()[3]));
                             break;
                         case "set":
-                            setSecondsOfTimer(timer, Integer.parseInt(getArgs()[3]));
+                            setSecondsOfTimer(timer, Long.parseLong(getArgs()[3]));
                             break;
                         default:
                             printSyntaxMessage(this);
                             break;
                     }
                 } catch (NumberFormatException e) {
-                    sendMessage(PrefixUtils.getErrorPrefix() + "Invalid integer '&f" + getArgs()[3] + "&7'.");
+                    sendMessage(PrefixUtils.getErrorPrefix() + "Invalid number '&f" + getArgs()[3] + "&7'.");
                 }
             }
         }
     }
 
-    private void addSecondsToTimer(Timer timer, int seconds) {
+    private void addSecondsToTimer(Timer timer, long seconds) {
         if (seconds >= 0) {
-            if ((long)timer.getSeconds() + (long)seconds >= Integer.MAX_VALUE) {
+            if (timer.getSeconds() + seconds >= Long.MAX_VALUE) {
                 timer.setSeconds(timer.getSeconds() + seconds);
                 timer.save();
                 sendMessage(PrefixUtils.getTimerPrefix() +
                         String.format("Added %s second" + ((seconds != 1) ? "s" : "") + " to timer '&f%s&7'.", seconds, timer.getName()));
             } else {
                 sendMessage(PrefixUtils.getErrorPrefix() +
-                        String.format("Adding %s second" + ((seconds != 1) ? "s" : "") + " to '&f%s&7' exceeds the integer limit (%s).", seconds, timer.getName(), Integer.MAX_VALUE));
+                        String.format("Adding %s second" + ((seconds != 1) ? "s" : "") + " to '&f%s&7' exceeds the long limit (%s).", seconds, timer.getName(), Long.MAX_VALUE));
             }
         } else {
             sendMessage(PrefixUtils.getErrorPrefix() + "Can't add negative seconds to a timer.");
         }
     }
 
-    private void removeSecondsFromTimer(Timer timer, int seconds) {
+    private void removeSecondsFromTimer(Timer timer, long seconds) {
         if (seconds >= 0) {
             if (timer.getSeconds() - seconds >= 0) {
                 timer.setSeconds(timer.getSeconds() - seconds);
@@ -78,7 +78,7 @@ public class TimeSubCommand extends SubCommands {
         }
     }
 
-    private void setSecondsOfTimer(Timer timer, int seconds) {
+    private void setSecondsOfTimer(Timer timer, long seconds) {
         if (seconds >= 0) {
             timer.setSeconds(seconds);
             timer.save();
