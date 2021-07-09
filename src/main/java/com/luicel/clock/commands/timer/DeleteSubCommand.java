@@ -19,7 +19,7 @@ public class DeleteSubCommand extends SubCommands {
 
     @Override
     protected void execute() {
-        if (getArgs().length <= 1) {
+        if (getArgs().length < 2) {
             printSyntaxMessage(this);
         } else {
             Timer timer = TimersFile.getTimer(getArgs()[1]);

@@ -19,7 +19,7 @@ public class CreateSubCommand extends SubCommands {
 
     @Override
     protected void execute() {
-        if (getArgs().length <= 2) {
+        if (getArgs().length < 3) {
             printSyntaxMessage(this);
         } else {
             if (TimersFile.doesTimerWithNameExist(getArgs()[1])) {

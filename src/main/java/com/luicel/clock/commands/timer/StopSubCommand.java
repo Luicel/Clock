@@ -17,11 +17,15 @@ public class StopSubCommand extends SubCommands {
 
     @Override
     public void execute() {
-        Timer timer = TimersFile.getTimer(getArgs()[1]);
-        if (timer == null) {
-            sendMessage(PrefixUtils.getErrorPrefix() + "No timer with the name '&f" + getArgs()[1] + "&7' exists!");
+        if (getArgs().length < 2) {
+            printSyntaxMessage(this);
         } else {
-            tryToStopTimer(timer);
+            Timer timer = TimersFile.getTimer(getArgs()[1]);
+            if (timer == null) {
+                sendMessage(PrefixUtils.getErrorPrefix() + "No timer with the name '&f" + getArgs()[1] + "&7' exists!");
+            } else {
+                tryToStopTimer(timer);
+            }
         }
     }
 
