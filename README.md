@@ -20,9 +20,7 @@ Timer
   /timer info <name>
   /timer list
   /timer start <name>
-  /timer cancel <name>
-  /timer pause <name>
-  /timer resume <name>
+  /timer stop <name>
   /timer time <name> <add/remove/set> <seconds>
   /timer display <name> <none/actionbar>
 Stopwatch
@@ -34,7 +32,6 @@ Stopwatch
   /stopwatch stop <name>
   /stopwatch lap <name>
   /stopwatch reset <name>
-  /stopwatch time <name> <add/remove/set> <amount>
   /stopwatch display <name> <none/actionbar>
 ```
 
