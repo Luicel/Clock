@@ -79,7 +79,7 @@ public class Timer implements ConfigurationSerializable {
         return ChatUtils.format("&f00:00:" + seconds);
     }
 
-    // Maybe find a way to clean this up later?
+    // TODO Maybe find a way to clean this up later?
     public String getTimeRemainingAsString() {
         final int SECONDS_IN_A_MINUTE = 60;
         final int SECONDS_IN_A_HOUR = 3600;
@@ -90,19 +90,19 @@ public class Timer implements ConfigurationSerializable {
         if (cacheSeconds / SECONDS_IN_A_DAY > 0 || string.length() > 0) {
             int days = cacheSeconds / SECONDS_IN_A_DAY;
             cacheSeconds %= SECONDS_IN_A_DAY;
-            string.append(String.format("%s days, ", days));
+            string.append(String.format("%s%sd ", (days < 10) ? "0" : "", days));
         }
         if (cacheSeconds / SECONDS_IN_A_HOUR > 0 || string.length() > 0) {
             int hours = cacheSeconds / SECONDS_IN_A_HOUR;
             cacheSeconds %= SECONDS_IN_A_HOUR;
-            string.append(String.format("%s hours, ", hours));
+            string.append(String.format("%s%sh ", (hours < 10) ? "0" : "", hours));
         }
         if (cacheSeconds / SECONDS_IN_A_MINUTE > 0 || string.length() > 0) {
             int minutes = cacheSeconds / SECONDS_IN_A_MINUTE;
             cacheSeconds %= SECONDS_IN_A_MINUTE;
-            string.append(String.format("%s minutes and ", minutes));
+            string.append(String.format("%s%sm ", (minutes < 10) ? "0" : "", minutes));
         }
-        string.append(String.format("%s seconds", cacheSeconds));
+        string.append(String.format("%s%ss", (cacheSeconds < 10) ? "0" : "", cacheSeconds));
 
         return string.toString();
     }
