@@ -29,21 +29,14 @@ public class StartSubCommand extends SubCommands {
 
     private void tryToStartTimer(Timer timer) {
         if (timer.getSeconds() > 0) {
-            switch (timer.getState()) {
-                case ACTIVE:
-                    sendMessage(PrefixUtils.getErrorPrefix() + "Timer '&f" + timer.getName() + "&7' is already active!");
-                    break;
-                case PAUSED:
-                    sendMessage(PrefixUtils.getErrorPrefix() + "Timer '&f" + timer.getName() + "&7' is currently paused!");
-                    break;
-                case INACTIVE: {
-                    timer.setState(Timer.State.ACTIVE);
-                    timer.save();
-                    new TimerRunnable(timer).runTaskTimer(Clock.getInstance(), 0, 20);
-                    sendMessage(PrefixUtils.getTimerPrefix() + "Timer '&f" + timer.getName() + "&7' has been &astarted&7. " +
-                            "Time remaining: &f" + timer.getTimeRemainingAsString() + "&7.");
-                    break;
-                }
+            if (timer.getState() == Timer.State.INACTIVE) {
+                timer.setState(Timer.State.ACTIVE);
+                timer.save();
+                new TimerRunnable(timer).runTaskTimer(Clock.getInstance(), 0, 20);
+                sendMessage(PrefixUtils.getTimerPrefix() + "Timer '&f" + timer.getName() + "&7' has been &astarted&7. " +
+                        "Time remaining: &f" + timer.getTimeRemainingAsString() + "&7.");
+            } else {
+                sendMessage(PrefixUtils.getErrorPrefix() + "Timer '&f" + timer.getName() + "&7' is already active!");
             }
         } else {
             sendMessage(PrefixUtils.getErrorPrefix() + "Timer '&f" + timer.getName() + "&7' has 0 seconds remaining, thus it can not be started.");

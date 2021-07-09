@@ -26,20 +26,13 @@ public class StopSubCommand extends SubCommands {
     }
 
     private void tryToStopTimer(Timer timer) {
-        switch (timer.getState()) {
-            case ACTIVE: {
-                timer.setState(Timer.State.INACTIVE);
-                timer.save();
-                sendMessage(PrefixUtils.getTimerPrefix() + "Timer '&f" + timer.getName() + "&7' has been &cstopped&7. " +
-                        "Time remaining: &f" + timer.getTimeRemainingAsString() + "&7.");
-                break;
-            }
-            case PAUSED:
-                sendMessage(PrefixUtils.getErrorPrefix() + "Timer '&f" + timer.getName() + "&7' is currently paused!");
-                break;
-            case INACTIVE:
-                sendMessage(PrefixUtils.getErrorPrefix() + "Timer '&f" + timer.getName() + "&7' is not active!");
-                break;
+        if (timer.getState() == Timer.State.ACTIVE) {
+            timer.setState(Timer.State.INACTIVE);
+            timer.save();
+            sendMessage(PrefixUtils.getTimerPrefix() + "Timer '&f" + timer.getName() + "&7' has been &cstopped&7. " +
+                    "Time remaining: &f" + timer.getTimeRemainingAsString() + "&7.");
+        } else {
+            sendMessage(PrefixUtils.getErrorPrefix() + "Timer '&f" + timer.getName() + "&7' is not active!");
         }
     }
 }

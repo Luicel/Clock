@@ -15,7 +15,7 @@ public class Timer implements ConfigurationSerializable {
     private String name = "";
     private int seconds = 0;
 
-    public enum State { ACTIVE, INACTIVE, PAUSED }
+    public enum State { ACTIVE, INACTIVE }
     private State state = State.INACTIVE;
 
     public Timer(String name, int seconds) {
@@ -60,12 +60,14 @@ public class Timer implements ConfigurationSerializable {
 
     public String getStateAsString() {
         String stateString = "";
-        if (state == Timer.State.ACTIVE)
-            stateString = ChatUtils.format("&aActive");
-        else if (state == Timer.State.INACTIVE)
-            stateString = ChatUtils.format("&cInactive");
-        else if (state == Timer.State.PAUSED)
-            stateString = ChatUtils.format("&ePaused");
+        switch (state) {
+            case ACTIVE:
+                stateString = ChatUtils.format("&aActive");
+                break;
+            case INACTIVE:
+                stateString = ChatUtils.format("&cInactive");
+                break;
+        }
         return stateString;
     }
 
