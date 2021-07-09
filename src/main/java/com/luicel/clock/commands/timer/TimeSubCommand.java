@@ -52,10 +52,10 @@ public class TimeSubCommand extends SubCommands {
                 timer.setSeconds(timer.getSeconds() + seconds);
                 timer.save();
                 sendMessage(PrefixUtils.getTimerPrefix() +
-                        String.format("Added %s second" + ((seconds != 1) ? "s" : "") + " to timer '&f%s&7'.", seconds, timer.getName()));
+                        String.format("Added &f%s &7second" + ((seconds != 1) ? "s" : "") + " to timer '&f%s&7'.", seconds, timer.getName()));
             } else {
                 sendMessage(PrefixUtils.getErrorPrefix() +
-                        String.format("Adding %s second" + ((seconds != 1) ? "s" : "") + " to '&f%s&7' exceeds the long limit (%s).", seconds, timer.getName(), Long.MAX_VALUE));
+                        String.format("Adding &f%s &7second" + ((seconds != 1) ? "s" : "") + " to '&f%s&7' exceeds the long limit (%s).", seconds, timer.getName(), Long.MAX_VALUE));
             }
         } else {
             sendMessage(PrefixUtils.getErrorPrefix() + "Can't add negative seconds to a timer.");
@@ -68,10 +68,10 @@ public class TimeSubCommand extends SubCommands {
                 timer.setSeconds(timer.getSeconds() - seconds);
                 timer.save();
                 sendMessage(PrefixUtils.getTimerPrefix() +
-                        String.format("Removed %s second" + ((seconds != 1) ? "s" : "") + " to timer '&f%s&7'.", seconds, timer.getName()));
+                        String.format("Removed &f%s &7second" + ((seconds != 1) ? "s" : "") + " to timer '&f%s&7'.", seconds, timer.getName()));
             } else {
                 sendMessage(PrefixUtils.getErrorPrefix() +
-                        String.format("Removing %s second" + ((seconds != 1) ? "s" : "") + " from '&f%s&7' sets the timer's remaining time to below 0.", seconds, timer.getName()));
+                        String.format("Removing &f%s &7second" + ((seconds != 1) ? "s" : "") + " from '&f%s&7' sets the timer's remaining time to below 0.", seconds, timer.getName()));
             }
         } else {
             sendMessage(PrefixUtils.getErrorPrefix() + "Can't remove negative seconds from a timer.");
@@ -83,7 +83,7 @@ public class TimeSubCommand extends SubCommands {
             timer.setSeconds(seconds);
             timer.save();
             sendMessage(PrefixUtils.getTimerPrefix() +
-                    String.format("Set timer '&f%s&7' to %s second" + ((seconds != 1) ? "s" : "") + ".", timer.getName(), seconds));
+                    String.format("Set timer '&f%s&7' to &f%s &7second" + ((seconds != 1) ? "s" : "") + ".", timer.getName(), seconds));
         } else {
             sendMessage(PrefixUtils.getErrorPrefix() + "You can not set a timer's remaining time to below 0.");
         }
