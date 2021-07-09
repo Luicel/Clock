@@ -40,12 +40,13 @@ public class StartSubCommand extends SubCommands {
                     timer.setState(Timer.State.ACTIVE);
                     timer.save();
                     new TimerRunnable(timer).runTaskTimer(Clock.getInstance(), 0, 20);
-                    sendMessage(PrefixUtils.getTimerPrefix() + "Timer '&f" + timer.getName() + "&7' has been &astarted&7.");
+                    sendMessage(PrefixUtils.getTimerPrefix() + "Timer '&f" + timer.getName() + "&7' has been &astarted&7. " +
+                            "Time remaining: &f" + timer.getTimeRemainingAsString() + "&7.");
                     break;
                 }
             }
         } else {
-            sendMessage(PrefixUtils.getErrorPrefix() + "Timer '&f" + timer.getName() + "&7' has 0 seconds remaining, thus it can not be started&7.");
+            sendMessage(PrefixUtils.getErrorPrefix() + "Timer '&f" + timer.getName() + "&7' has 0 seconds remaining, thus it can not be started.");
         }
     }
 }

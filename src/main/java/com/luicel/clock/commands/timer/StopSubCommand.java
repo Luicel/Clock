@@ -30,7 +30,8 @@ public class StopSubCommand extends SubCommands {
             case ACTIVE: {
                 timer.setState(Timer.State.INACTIVE);
                 timer.save();
-                sendMessage(PrefixUtils.getTimerPrefix() + "Timer '&f" + timer.getName() + "&7' has been &cstopped&7.");
+                sendMessage(PrefixUtils.getTimerPrefix() + "Timer '&f" + timer.getName() + "&7' has been &cstopped&7. " +
+                        "Time remaining: &f" + timer.getTimeRemainingAsString() + "&7.");
                 break;
             }
             case PAUSED:

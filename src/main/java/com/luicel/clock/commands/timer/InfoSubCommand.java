@@ -34,9 +34,9 @@ public class InfoSubCommand extends SubCommands {
         sendMessage(PrefixUtils.getHeaderColoredLine("&b") + "&b&lTIMER INFO:");
         sendMessage("&7Name: &f" + timer.getName());
         sendMessage("&7Time Remaining: &f" + timer.getTimeRemainingAsString());
-        sendMessage("&7State: &f" + timer.getState().name());
+        sendMessage("&7State: &f" + timer.getStateAsString());
         sendMessage("");
-        sendMessage("&7Display Status: &f" + timer.getDisplayFormat());
-        sendMessage("&7Display Format: &f"); // TODO (prefix + format + suffix)
+        sendMessage("&7Display Status: &f");
+        sendMessage("&7Display Format: &f" + timer.getDisplayFormat()); // TODO (prefix + format + suffix)
     }
 }
