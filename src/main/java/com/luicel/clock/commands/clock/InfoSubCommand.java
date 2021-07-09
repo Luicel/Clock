@@ -25,7 +25,7 @@ public class InfoSubCommand extends SubCommands {
 
     @Override
     public void execute() {
-        sendMessage("&e&lCLOCK: &f(v" + Clock.getInstance().getDescription().getVersion() + ")");
+        sendMessage(PrefixUtils.getHeaderColoredLine("&e") + "&e&lCLOCK: &f(v" + Clock.getInstance().getDescription().getVersion() + ")");
         sendMessage("&7Create, delete, and configure timers and stopwatches");
         sendMessage("&7completely in-game!");
         sendMessage("");
@@ -37,12 +37,9 @@ public class InfoSubCommand extends SubCommands {
         TextComponent message = new TextComponent(ChatUtils.format("&fhttps://github.com/Luicel/Clock"));
         message.setHoverEvent(new HoverEvent(
                 HoverEvent.Action.SHOW_TEXT,
-                new ComponentBuilder(ChatUtils.format("&fClick to visit!")).create())
+                new ComponentBuilder(ChatUtils.format("&aClick to visit!")).create())
         );
-        message.setClickEvent(new ClickEvent(
-                ClickEvent.Action.OPEN_URL,
-                "https://github.com/Luicel/Clock")
-        );
+        message.setClickEvent(new ClickEvent( ClickEvent.Action.OPEN_URL, "https://github.com/Luicel/Clock"));
         getPlayer().spigot().sendMessage(message);
     }
 }

@@ -6,12 +6,11 @@ import com.luicel.clock.commands.SubCommands;
 import com.luicel.clock.files.TimersFile;
 import com.luicel.clock.models.Timer;
 import com.luicel.clock.utils.ChatUtils;
-import net.md_5.bungee.api.chat.BaseComponent;
-import net.md_5.bungee.api.chat.ComponentBuilder;
-import net.md_5.bungee.api.chat.HoverEvent;
-import net.md_5.bungee.api.chat.TextComponent;
+import com.luicel.clock.utils.PrefixUtils;
+import net.md_5.bungee.api.chat.*;
 import org.bukkit.command.CommandSender;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @HelpOrder(4)
@@ -29,30 +28,22 @@ public class ListSubCommand extends SubCommands {
     private void printTimers() {
         List<Timer> timers = TimersFile.getTimers();
 
-        sendMessage(String.format("&b&lTIMERS: &f(%s)", timers.size()));
+        sendMessage(String.format(PrefixUtils.getHeaderColoredLine("&b") + "&b&lTIMERS: &f(%s)", timers.size()));
         for (Timer timer : timers) {
             TextComponent message = new TextComponent(ChatUtils.format("&7- " + timer.getName()));
             message.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, createAndGetBaseComponent(timer)));
+            message.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/timer info " + timer.getName()));
             getPlayer().spigot().sendMessage(message);
         }
     }
 
     private BaseComponent[] createAndGetBaseComponent(Timer timer) {
-        String line1 = ChatUtils.format("&7Display: " + timer.getDisplayFormat());
-        String line2 = ChatUtils.format("&7State: " + getTimerStateAsString(timer));
-        String text = line1 + "\n" + line2;
+        StringBuilder text = new StringBuilder()
+            .append("&7Time Remaining: &f").append(timer.getTimeRemainingAsString()).append("\n")
+            .append("&7State: " + timer.getStateAsString()).append("\n")
+            .append("\n")
+            .append("&aClick for more info!");
 
-        return new ComponentBuilder(text).create();
-    }
-
-    private String getTimerStateAsString(Timer timer) {
-        String stateString = "";
-        if (timer.getState() == Timer.State.ACTIVE)
-            stateString = ChatUtils.format("&aActive");
-        else if (timer.getState() == Timer.State.INACTIVE)
-            stateString = ChatUtils.format("&cInactive");
-        else if (timer.getState() == Timer.State.PAUSED)
-            stateString = ChatUtils.format("&ePaused");
-        return stateString;
+        return new ComponentBuilder(ChatUtils.format(text.toString())).create();
     }
 }

@@ -5,6 +5,7 @@ import com.luicel.clock.annotations.HelpOrder;
 import com.luicel.clock.commands.SubCommands;
 import com.luicel.clock.files.TimersFile;
 import com.luicel.clock.models.Timer;
+import com.luicel.clock.utils.ChatUtils;
 import com.luicel.clock.utils.PrefixUtils;
 import org.bukkit.command.CommandSender;
 
@@ -30,9 +31,9 @@ public class InfoSubCommand extends SubCommands {
     }
 
     private void printTimerInfo(Timer timer) {
-        sendMessage("&b&lTIMER INFO:");
+        sendMessage(PrefixUtils.getHeaderColoredLine("&b") + "&b&lTIMER INFO:");
         sendMessage("&7Name: &f" + timer.getName());
-        sendMessage("&7Time Remaining: &f" + timer.getTimeRemaining());
+        sendMessage("&7Time Remaining: &f" + timer.getTimeRemainingAsString());
         sendMessage("&7State: &f" + timer.getState().name());
         sendMessage("");
         sendMessage("&7Display Status: &f" + timer.getDisplayFormat());

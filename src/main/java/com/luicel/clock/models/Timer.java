@@ -58,6 +58,17 @@ public class Timer implements ConfigurationSerializable {
         this.state = state;
     }
 
+    public String getStateAsString() {
+        String stateString = "";
+        if (state == Timer.State.ACTIVE)
+            stateString = ChatUtils.format("&aActive");
+        else if (state == Timer.State.INACTIVE)
+            stateString = ChatUtils.format("&cInactive");
+        else if (state == Timer.State.PAUSED)
+            stateString = ChatUtils.format("&ePaused");
+        return stateString;
+    }
+
     // TODO
     public String getDisplayStatus() {
         return "";
@@ -68,8 +79,37 @@ public class Timer implements ConfigurationSerializable {
         return ChatUtils.format("&f00:00:" + seconds);
     }
 
-    public String getTimeRemaining() {
-        return "";
+    // Maybe find a way to clean this up later?
+    public String getTimeRemainingAsString() {
+        final int SECONDS_IN_A_MINUTE = 60;
+        final int SECONDS_IN_A_HOUR = 3600;
+        final int SECONDS_IN_A_DAY = 86400;
+        StringBuilder string = new StringBuilder();
+        int cacheSeconds = seconds;
+
+        if (cacheSeconds / SECONDS_IN_A_DAY > 0 || string.length() > 0) {
+            int days = cacheSeconds / SECONDS_IN_A_DAY;
+            cacheSeconds %= SECONDS_IN_A_DAY;
+            string.append(String.format("%s days, ", days));
+        }
+        if (cacheSeconds / SECONDS_IN_A_HOUR > 0 || string.length() > 0) {
+            int hours = cacheSeconds / SECONDS_IN_A_HOUR;
+            cacheSeconds %= SECONDS_IN_A_HOUR;
+            string.append(String.format("%s hours, ", hours));
+        }
+        if (cacheSeconds / SECONDS_IN_A_MINUTE > 0 || string.length() > 0) {
+            int minutes = cacheSeconds / SECONDS_IN_A_MINUTE;
+            cacheSeconds %= SECONDS_IN_A_MINUTE;
+            string.append(String.format("%s minutes and ", minutes));
+        }
+        string.append(String.format("%s seconds", cacheSeconds));
+
+        return string.toString();
+    }
+
+    public static boolean isNameValid(String name) {
+        // TODO
+        return true;
     }
 
     public void save() {
@@ -91,10 +131,5 @@ public class Timer implements ConfigurationSerializable {
             e.printStackTrace();
         }
         TimersFile.getTimers().remove(this);
-    }
-    
-    public static boolean isNameValid(String name) {
-        // TODO
-        return true;
     }
 }

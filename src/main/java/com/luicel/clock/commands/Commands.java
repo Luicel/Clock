@@ -40,8 +40,8 @@ public abstract class Commands implements CommandExecutor {
             Constructor<?> constructor = subCommandClass.getConstructor(CommandSender.class, String.class, String[].class);
             constructor.setAccessible(true);
             constructor.newInstance(sender, label, args);
-        } catch (NoSuchMethodException | IllegalAccessException | InstantiationException | InvocationTargetException e) {
-            e.printStackTrace();
+        } catch (NoSuchMethodException | IllegalAccessException | InstantiationException | InvocationTargetException | NullPointerException e) {
+            printHelpMessage((Player) sender);
         }
     }
 
