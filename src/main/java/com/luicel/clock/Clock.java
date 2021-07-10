@@ -5,6 +5,7 @@ import com.luicel.clock.commands.Commands;
 import com.luicel.clock.files.Files;
 import com.luicel.clock.files.TimersFile;
 import com.luicel.clock.models.Timer;
+import com.luicel.clock.runnables.DisplayRunnable;
 import org.bukkit.configuration.serialization.ConfigurationSerializable;
 import org.bukkit.configuration.serialization.ConfigurationSerialization;
 import org.bukkit.configuration.serialization.SerializableAs;
@@ -24,6 +25,8 @@ public final class Clock extends JavaPlugin {
         registerSerializables();
         registerCommands();
         registerFiles();
+
+        new DisplayRunnable().runTaskTimer(getInstance(), 0, 1);
     }
 
     @Override

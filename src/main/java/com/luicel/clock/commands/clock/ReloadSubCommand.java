@@ -3,6 +3,7 @@ package com.luicel.clock.commands.clock;
 import com.luicel.clock.commands.SubCommands;
 import com.luicel.clock.files.TimersFile;
 import com.luicel.clock.models.Timer;
+import com.luicel.clock.runnables.DisplayRunnable;
 import com.luicel.clock.utils.PrefixUtils;
 import org.bukkit.command.CommandSender;
 
@@ -16,11 +17,12 @@ public class ReloadSubCommand extends SubCommands {
 
     @Override
     protected void execute() {
-        reloadConfigs();
+        DisplayRunnable.clearDisplayingObjects();
+        reloadTimers();
         sendMessage(PrefixUtils.getClockPrefix() + "Successfully reloaded!");
     }
 
-    private void reloadConfigs() {
+    private void reloadTimers() {
         // TODO add behavior for config option to disable using cached seconds
         // create map and store currently cached seconds
         Map<String, Long> map = new HashMap<>();
