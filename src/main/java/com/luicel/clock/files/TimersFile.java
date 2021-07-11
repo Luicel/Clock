@@ -40,7 +40,6 @@ public class TimersFile extends Files {
             Bukkit.getLogger().warning(String.format("[%s] No timers detected. If none exist, please ignore this.",
                     Clock.getInstance().getClass().getSimpleName())
             );
-            e.printStackTrace();
         }
     }
 
