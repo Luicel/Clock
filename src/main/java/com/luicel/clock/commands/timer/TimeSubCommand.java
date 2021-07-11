@@ -40,7 +40,7 @@ public class TimeSubCommand extends SubCommands {
                             break;
                     }
                 } catch (NumberFormatException e) {
-                    sendMessage(PrefixUtils.getErrorPrefix() + "Invalid number '&f" + getArgs()[3] + "&7'.");
+                    sendMessage(PrefixUtils.getErrorPrefix() + "Invalid number '&f" + getArgs()[3] + "&7'. Please use an integer!");
                 }
             }
         }
@@ -48,7 +48,8 @@ public class TimeSubCommand extends SubCommands {
 
     private void addSecondsToTimer(Timer timer, long seconds) {
         if (seconds >= 0) {
-            if (timer.getSeconds() + seconds >= Long.MAX_VALUE) {
+            //noinspection ConstantConditions
+            if (timer.getSeconds() + seconds <= Long.MAX_VALUE) {
                 timer.setSeconds(timer.getSeconds() + seconds);
                 timer.save();
                 sendMessage(PrefixUtils.getTimerPrefix() +

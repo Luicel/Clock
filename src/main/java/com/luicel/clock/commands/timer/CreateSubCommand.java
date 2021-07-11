@@ -38,7 +38,7 @@ public class CreateSubCommand extends SubCommands {
             timer.save();
             sendMessage(PrefixUtils.getTimerPrefix() + "Timer '&f" + timer.getName() + "&7' successfully created!");
         } catch (NumberFormatException e) {
-            sendMessage(PrefixUtils.getErrorPrefix() + "Invalid number '&f" + getArgs()[2] + "&7'.");
+            sendMessage(PrefixUtils.getErrorPrefix() + "Invalid number '&f" + getArgs()[2] + "&7'. Please use an integer!");
         }
     }
 }
