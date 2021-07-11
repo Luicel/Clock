@@ -1,0 +1,7 @@
+formats:
+  timer:
+    default-prefix: "&b&lTimer: &f"
+    default-suffix: ""
+  stopwatch:
+    default-prefix: "&d&lStopwatch: &f"
+    default-suffix: ""

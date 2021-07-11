@@ -1,5 +1,7 @@
 package com.luicel.clock.commands.clock;
 
+import com.luicel.clock.annotations.ArgumentsText;
+import com.luicel.clock.annotations.HelpOrder;
 import com.luicel.clock.commands.SubCommands;
 import com.luicel.clock.files.TimersFile;
 import com.luicel.clock.models.Timer;
@@ -10,6 +12,8 @@ import org.bukkit.command.CommandSender;
 import java.util.HashMap;
 import java.util.Map;
 
+@HelpOrder(2)
+@ArgumentsText("")
 public class ReloadSubCommand extends SubCommands {
     public ReloadSubCommand(CommandSender sender, String label, String[] args) {
         super(sender, label, args);

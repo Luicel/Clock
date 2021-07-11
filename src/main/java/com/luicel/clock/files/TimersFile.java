@@ -7,17 +7,24 @@ import com.luicel.clock.runnables.DisplayRunnable;
 import com.luicel.clock.runnables.TimerRunnable;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.InvalidConfigurationException;
+import org.bukkit.configuration.file.YamlConfiguration;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 @FileDirectory("data")
 public class TimersFile extends Files {
+    public static YamlConfiguration ymlConfig;
+    public static File file;
+
     private static final List<Timer> timers = new ArrayList<>();
 
     public TimersFile(String fileName, String directory) {
-        super(fileName, directory);
+        ymlConfig = createConfig(fileName, directory);
+        file = getFile(fileName);
+
         registerTimers();
     }
 
@@ -28,11 +35,12 @@ public class TimersFile extends Files {
                 timers.add((Timer) ymlConfig.get("timers." + timerName));
             }
             registerRunnables();
-            handleDisplayStatuses();
+            handleDisplays();
         } catch (NullPointerException | IOException | InvalidConfigurationException e) {
             Bukkit.getLogger().warning(String.format("[%s] No timers detected. If none exist, please ignore this.",
                     Clock.getInstance().getClass().getSimpleName())
             );
+            e.printStackTrace();
         }
     }
 
@@ -44,7 +52,7 @@ public class TimersFile extends Files {
         });
     }
 
-    private static void handleDisplayStatuses() {
+    private static void handleDisplays() {
         timers.forEach(timer -> {
             if (timer.getDisplayStatus() == Timer.Display.ACTIONBAR) {
                 if (DisplayRunnable.getActionbarDisplayingObject() == null) {

@@ -1,5 +1,6 @@
 package com.luicel.clock.runnables;
 
+import com.luicel.clock.files.ConfigFile;
 import com.luicel.clock.models.Timer;
 import com.luicel.clock.utils.ChatUtils;
 import net.md_5.bungee.api.ChatMessageType;
@@ -21,9 +22,13 @@ public class DisplayRunnable extends BukkitRunnable {
 
     private void displayActionbar() {
         if (actionbarDisplayingObject instanceof Timer) {
+            // temp
+            String displayText = ConfigFile.getString("formats.timer.default-prefix") +
+                    ((Timer) actionbarDisplayingObject).getTimeRemainingAsString() +
+                    ConfigFile.getString("formats.timer.default-suffix");
             for (Player player : Bukkit.getOnlinePlayers()) {
                 player.spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(
-                        ChatUtils.format(((Timer) actionbarDisplayingObject).getTimeRemainingAsString())
+                        ChatUtils.format(displayText)
                 ));
             }
         }

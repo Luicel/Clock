@@ -1,44 +1,37 @@
 package com.luicel.clock.files;
 
 import com.luicel.clock.Clock;
-import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.*;
 
 public class Files {
-    public static YamlConfiguration ymlConfig;
-    public static File file;
+    private String FOLDER = Clock.getInstance().getDataFolder() + "\\";
 
-    public static String FOLDER = Clock.getInstance().getDataFolder() + "\\";
-
-    public Files(String fileName, String directory) {
-        if (directory.length() > 0)
-            FOLDER += directory + "\\";
-        ymlConfig = createConfig(fileName);
-        file = getFile(fileName);
-    }
-
-    public YamlConfiguration createConfig(String fileName) {
+    protected YamlConfiguration createConfig(String fileName, String directory) {
         if (!Clock.getInstance().getDataFolder().exists())
             Clock.getInstance().getDataFolder().mkdir();
 
-        File dataDirectory = new File(Clock.getInstance().getDataFolder(), "data");
-        if (!dataDirectory.exists())
-            dataDirectory.mkdirs();
+        if (directory.length() > 0) {
+            FOLDER += directory + "\\";
 
-        File file = Files.getFile(fileName);
+            File dataDirectory = new File(Clock.getInstance().getDataFolder(), directory);
+            if (!dataDirectory.exists())
+                dataDirectory.mkdirs();
+        }
+
+        File file = getFile(fileName);
         if (!file.exists())
             file = copyDefault(fileName);
 
         return YamlConfiguration.loadConfiguration(file);
     }
 
-    public static File getFile(String path) {
+    protected File getFile(String path) {
         return new File(FOLDER + path);
     }
 
-    private File copyDefault(String fileName) {
+    protected File copyDefault(String fileName) {
         try {
             BufferedReader reader = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream("/" + fileName)));
             BufferedWriter writer = new BufferedWriter(new FileWriter(FOLDER + fileName));
