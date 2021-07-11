@@ -16,8 +16,8 @@ public class Timer implements ConfigurationSerializable {
 
     public enum State { ACTIVE, INACTIVE }
     private State state = State.INACTIVE;
-    public enum DisplayStatus { NONE, ACTIONBAR }
-    private DisplayStatus displayStatus = DisplayStatus.NONE;
+    public enum Display { NONE, ACTIONBAR }
+    private Display display = Display.NONE;
 
     public Timer(String name, long seconds) {
         this.name = name;
@@ -28,7 +28,7 @@ public class Timer implements ConfigurationSerializable {
         this.name = map.getOrDefault("name", name).toString();
         this.seconds = Integer.parseInt(map.getOrDefault("seconds", seconds).toString());
         this.state = State.valueOf(map.getOrDefault("state", state.name()).toString());
-        this.displayStatus = DisplayStatus.valueOf(map.getOrDefault("displayStatus", displayStatus.name()).toString());
+        this.display = Display.valueOf(map.getOrDefault("display", display.name()).toString());
     }
 
     @Override
@@ -37,7 +37,7 @@ public class Timer implements ConfigurationSerializable {
             put("name", name);
             put("seconds", seconds);
             put("state", state.name());
-            put("displayStatus", displayStatus.name());
+            put("display", display.name());
         }};
     }
 
@@ -74,16 +74,16 @@ public class Timer implements ConfigurationSerializable {
         return stateString;
     }
 
-    public void setDisplayStatus(DisplayStatus displayStatus) {
-        this.displayStatus = displayStatus;
+    public void setDisplayStatus(Display display) {
+        this.display = display;
     }
 
-    public DisplayStatus getDisplayStatus() {
-        return displayStatus;
+    public Display getDisplayStatus() {
+        return display;
     }
 
     public String getDisplayStatusAsString() {
-        return displayStatus.name().charAt(0) + displayStatus.name().substring(1).toLowerCase();
+        return display.name().charAt(0) + display.name().substring(1).toLowerCase();
     }
 
     public String getDisplayFormat() {

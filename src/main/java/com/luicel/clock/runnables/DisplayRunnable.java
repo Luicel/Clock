@@ -31,7 +31,7 @@ public class DisplayRunnable extends BukkitRunnable {
 
     public static void setActionbarDisplayingObject(Object object) {
         if (actionbarDisplayingObject instanceof Timer) {
-            ((Timer) actionbarDisplayingObject).setDisplayStatus(Timer.DisplayStatus.NONE);
+            ((Timer) actionbarDisplayingObject).setDisplayStatus(Timer.Display.NONE);
             ((Timer) actionbarDisplayingObject).save();
         }
         actionbarDisplayingObject = object;
