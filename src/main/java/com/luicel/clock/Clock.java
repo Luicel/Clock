@@ -14,6 +14,11 @@ import org.reflections.Reflections;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Set;
 
 public final class Clock extends JavaPlugin {
     private static Clock instance;
@@ -53,7 +58,8 @@ public final class Clock extends JavaPlugin {
     }
 
     private void registerFiles() {
-        new Reflections("com.luicel.clock.files").getSubTypesOf(Files.class).forEach(file -> {
+        Set<Class<? extends Files>> classes = new Reflections("com.luicel.clock.files").getSubTypesOf(Files.class);
+        classes.stream().sorted(Comparator.comparing(m -> m.getAnnotation(FileDirectory.class).value())).forEach(file -> {
             try {
                 Constructor<?> constructor = file.getConstructor(String.class, String.class);
                 String fileName = file.getSimpleName().replace("File", "").toLowerCase() + ".yml";
