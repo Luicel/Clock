@@ -16,14 +16,12 @@ public class TimerRunnable extends BukkitRunnable {
 
     @Override
     public void run() {
-        if (TimersFile.getTimers().contains(timer)) {
-            if (timer.getState() == Timer.State.ACTIVE) {
-                if (timer.getSeconds() > 0) {
-                    timer.setSeconds(timer.getSeconds() - 1);
-                } else {
-                    announceTimerCompletion();
-                    timer.setState(Timer.State.INACTIVE);
-                }
+        if (timer.getState() == Timer.State.ACTIVE) {
+            if (timer.getSeconds() > 0) {
+                timer.setSeconds(timer.getSeconds() - 1);
+            } else {
+                announceTimerCompletion();
+                timer.setState(Timer.State.INACTIVE);
             }
         } else {
             cancel();

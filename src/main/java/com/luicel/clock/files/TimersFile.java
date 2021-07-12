@@ -53,11 +53,11 @@ public class TimersFile extends Files {
 
     private static void handleDisplays() {
         timers.forEach(timer -> {
-            if (timer.getDisplayStatus() == Timer.Display.ACTIONBAR) {
+            if (timer.getDisplay() == Timer.Display.ACTIONBAR) {
                 if (DisplayRunnable.getActionbarDisplayingObject() == null) {
                     DisplayRunnable.setActionbarDisplayingObject(timer);
                 } else {
-                    timer.setDisplayStatus(Timer.Display.NONE);
+                    timer.setDisplay(Timer.Display.NONE);
                     timer.save();
                     Bukkit.getLogger().warning(String.format("[%s] Could not display Timer '%s' in actionbar as something else is already being displayed there, so we set its display status to NONE.",
                             Clock.getInstance().getClass().getSimpleName(),

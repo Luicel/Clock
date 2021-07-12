@@ -1,5 +1,6 @@
 package com.luicel.clock.models;
 
+import com.luicel.clock.files.ConfigFile;
 import com.luicel.clock.files.TimersFile;
 import com.luicel.clock.utils.ChatUtils;
 import org.bukkit.configuration.serialization.ConfigurationSerializable;
@@ -13,11 +14,13 @@ import java.util.Map;
 public class Timer implements ConfigurationSerializable {
     private String name = "";
     private long seconds = 0;
-
     public enum State { ACTIVE, INACTIVE }
     private State state = State.INACTIVE;
+
     public enum Display { NONE, ACTIONBAR }
     private Display display = Display.NONE;
+    private String formatPrefix = ConfigFile.getString("formats.timer.default-prefix");
+    private String formatSuffix = ConfigFile.getString("formats.timer.default-suffix");
 
     public Timer(String name, long seconds) {
         this.name = name;
@@ -29,6 +32,8 @@ public class Timer implements ConfigurationSerializable {
         this.seconds = Integer.parseInt(map.getOrDefault("seconds", seconds).toString());
         this.state = State.valueOf(map.getOrDefault("state", state.name()).toString());
         this.display = Display.valueOf(map.getOrDefault("display", display.name()).toString());
+        this.formatPrefix = map.getOrDefault("formatPrefix", formatPrefix).toString();
+        this.formatSuffix = map.getOrDefault("formatSuffix", formatSuffix).toString();
     }
 
     @Override
@@ -38,6 +43,8 @@ public class Timer implements ConfigurationSerializable {
             put("seconds", seconds);
             put("state", state.name());
             put("display", display.name());
+            put("formatPrefix", formatPrefix);
+            put("formatSuffix", formatSuffix);
         }};
     }
 
@@ -74,11 +81,11 @@ public class Timer implements ConfigurationSerializable {
         return stateString;
     }
 
-    public void setDisplayStatus(Display display) {
+    public void setDisplay(Display display) {
         this.display = display;
     }
 
-    public Display getDisplayStatus() {
+    public Display getDisplay() {
         return display;
     }
 
@@ -86,9 +93,24 @@ public class Timer implements ConfigurationSerializable {
         return display.name().charAt(0) + display.name().substring(1).toLowerCase();
     }
 
-    public String getDisplayFormat() {
-        // TODO grab from config to properly format
-        return ChatUtils.format("&f00:00:" + seconds);
+    public void setFormatPrefix(String formatPrefix) {
+        this.formatPrefix = formatPrefix;
+    }
+
+    public String getFormatPrefix() {
+        return formatPrefix;
+    }
+
+    public void setFormatSuffix(String formatSuffix) {
+        this.formatSuffix = formatSuffix;
+    }
+
+    public String getFormatSuffix() {
+        return formatSuffix;
+    }
+
+    public String getFormattedDisplay() {
+        return formatPrefix + getTimeRemainingAsString() + formatSuffix;
     }
 
     // TODO Maybe find a way to clean this up later?

@@ -35,7 +35,7 @@ public class DisplaySubCommand extends SubCommands {
             case "none": {
                 if (DisplayRunnable.isBeingDisplayed(timer)) {
                     DisplayRunnable.setActionbarDisplayingObject(null);
-                    timer.setDisplayStatus(Timer.Display.NONE);
+                    timer.setDisplay(Timer.Display.NONE);
                     timer.save();
                     sendMessage(PrefixUtils.getTimerPrefix() + "Timer '&f" + timer.getName() + "&7' is no longer being displayed anywhere.");
                 } else {
@@ -46,7 +46,7 @@ public class DisplaySubCommand extends SubCommands {
             case "actionbar": {
                 if (DisplayRunnable.getActionbarDisplayingObject() != timer) {
                     DisplayRunnable.setActionbarDisplayingObject(timer);
-                    timer.setDisplayStatus(Timer.Display.ACTIONBAR);
+                    timer.setDisplay(Timer.Display.ACTIONBAR);
                     timer.save();
                     sendMessage(PrefixUtils.getTimerPrefix() + "Timer '&f" + timer.getName() + "&7' is now being displayed in the &factionbar&7.");
                 } else {

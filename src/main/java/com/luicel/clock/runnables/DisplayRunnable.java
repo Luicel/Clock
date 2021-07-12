@@ -22,13 +22,9 @@ public class DisplayRunnable extends BukkitRunnable {
 
     private void displayActionbar() {
         if (actionbarDisplayingObject instanceof Timer) {
-            // temp
-            String displayText = ConfigFile.getString("formats.timer.default-prefix") +
-                    ((Timer) actionbarDisplayingObject).getTimeRemainingAsString() +
-                    ConfigFile.getString("formats.timer.default-suffix");
             for (Player player : Bukkit.getOnlinePlayers()) {
                 player.spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(
-                        ChatUtils.format(displayText)
+                        ChatUtils.format(((Timer) actionbarDisplayingObject).getFormattedDisplay())
                 ));
             }
         }
@@ -36,7 +32,7 @@ public class DisplayRunnable extends BukkitRunnable {
 
     public static void setActionbarDisplayingObject(Object object) {
         if (actionbarDisplayingObject instanceof Timer) {
-            ((Timer) actionbarDisplayingObject).setDisplayStatus(Timer.Display.NONE);
+            ((Timer) actionbarDisplayingObject).setDisplay(Timer.Display.NONE);
             ((Timer) actionbarDisplayingObject).save();
         }
         actionbarDisplayingObject = object;

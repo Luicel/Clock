@@ -69,7 +69,7 @@ public class TimeSubCommand extends SubCommands {
                 timer.setSeconds(timer.getSeconds() - seconds);
                 timer.save();
                 sendMessage(PrefixUtils.getTimerPrefix() +
-                        String.format("Removed &f%s &7second" + ((seconds != 1) ? "s" : "") + " to timer '&f%s&7'.", seconds, timer.getName()));
+                        String.format("Removed &f%s &7second" + ((seconds != 1) ? "s" : "") + " from timer '&f%s&7'.", seconds, timer.getName()));
             } else {
                 sendMessage(PrefixUtils.getErrorPrefix() +
                         String.format("Removing &f%s &7second" + ((seconds != 1) ? "s" : "") + " from '&f%s&7' sets the timer's remaining time to below 0.", seconds, timer.getName()));
