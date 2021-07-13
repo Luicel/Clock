@@ -9,6 +9,7 @@ import com.luicel.clock.utils.ChatUtils;
 import com.luicel.clock.utils.PrefixUtils;
 import net.md_5.bungee.api.chat.*;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,9 +32,13 @@ public class ListSubCommand extends SubCommands {
         sendMessage(String.format(PrefixUtils.getHeaderColoredLine("&b") + "&b&lTIMERS: &f(%s)", timers.size()));
         for (Timer timer : timers) {
             TextComponent message = new TextComponent(ChatUtils.format("&7- " + timer.getName()));
-            message.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, createAndGetBaseComponent(timer)));
-            message.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/timer info " + timer.getName()));
-            getPlayer().spigot().sendMessage(message);
+            if (getPlayer() != null) {
+                message.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, createAndGetBaseComponent(timer)));
+                message.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/timer info " + timer.getName()));
+                getPlayer().spigot().sendMessage(message);
+            } else {
+                sendMessage(message.getText());
+            }
         }
     }
 

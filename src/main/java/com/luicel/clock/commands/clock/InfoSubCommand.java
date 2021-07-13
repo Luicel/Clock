@@ -30,7 +30,11 @@ public class InfoSubCommand extends SubCommands {
         sendMessage("&7completely in-game!");
         sendMessage("");
         sendMessage("&7Check out the GitHub page for more information:");
-        sendClickableGitHubLinkMessage();
+        if (getPlayer() != null)
+            sendClickableGitHubLinkMessage();
+        else {
+            sendMessage("&fhttps://github.com/Luicel/Clock");
+        }
     }
 
     private void sendClickableGitHubLinkMessage() {
@@ -39,7 +43,7 @@ public class InfoSubCommand extends SubCommands {
                 HoverEvent.Action.SHOW_TEXT,
                 new ComponentBuilder(ChatUtils.format("&aClick to visit!")).create())
         );
-        message.setClickEvent(new ClickEvent( ClickEvent.Action.OPEN_URL, "https://github.com/Luicel/Clock"));
+        message.setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, "https://github.com/Luicel/Clock"));
         getPlayer().spigot().sendMessage(message);
     }
 }
