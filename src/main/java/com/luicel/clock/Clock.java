@@ -59,7 +59,7 @@ public final class Clock extends JavaPlugin {
 
     private void registerFiles() {
         Set<Class<? extends Files>> classes = new Reflections("com.luicel.clock.files").getSubTypesOf(Files.class);
-        classes.stream().sorted(Comparator.comparing(m -> m.getAnnotation(FileDirectory.class).value())).forEach(file -> {
+        classes.stream().sorted(Comparator.comparing(c -> c.getAnnotation(FileDirectory.class).value())).forEach(file -> {
             try {
                 Constructor<?> constructor = file.getConstructor(String.class, String.class);
                 String fileName = file.getSimpleName().replace("File", "").toLowerCase() + ".yml";
