@@ -4,7 +4,7 @@ Warning: This project is still in early development, thus not all features liste
 
 # Clock
 
-This is a Minecraft 1.16 plugin written using the Spigot API. It allows players to create, delete, and configure clocks, timers, and stopwatches in-game.
+This is a Minecraft 1.16 plugin written using the Spigot API. It allows players to create, delete, and configure timers and and stopwatches in-game.
 
 This project was a learning experience for me and an excuse to familize myself with new concepts (annotations) and to brush up on others (IO, Reflections, polymorphism, etc).
 
@@ -45,7 +45,7 @@ Stopwatch
 # Configure the functionality of the plugin.
 ##############################
 mechanics:
-  # Whether or not to announce a timer's completion
+  # Whether or not to announce a timer's completion.
   announce-timer-completion: false
 
   # Whether or not to announce a stopwatch lapping.
@@ -73,13 +73,13 @@ formatting:
   # Color codes are supported!
   stopwatch-completion-announcement: "&7Stopwatch &f{stopwatch-name} &7has lapped at &f{lap-time}&7!"
 
-  # Default formats for timers
+  # Default formats for timers.
   # Use {timer-name} for the timer's name.
   # Color codes are supported!
   timer-default-format-prefix: "&b&lTimer: &f"
   timer-default-format-suffix: ""
 
-  # Default formats for stopwatches
+  # Default formats for stopwatches.
   # Use {stopwatch-name} for the timer's name.
   # Color codes are supported!
   stopwatch-default-format-prefix: "&d&lStopwatch: &f"
