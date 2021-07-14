@@ -23,6 +23,7 @@ Timer
   /timer stop <name>
   /timer time <name> <add/remove/set> <seconds>
   /timer display <name> <none/actionbar>
+  /timer format <name> <prefix/suffix> <text/clear>
 Stopwatch
   /stopwatch create <name>
   /stopwatch delete <name>
@@ -33,10 +34,54 @@ Stopwatch
   /stopwatch lap <name>
   /stopwatch reset <name>
   /stopwatch display <name> <none/actionbar>
+  /timer format <name> <prefix/suffix> <text/clear>
 ```
 
 ### Config
 
 ```
-Soon...
+##############################
+# MECHANICS
+# Configure the functionality of the plugin.
+##############################
+mechanics:
+  # Whether or not to announce a timer's completion
+  announce-timer-completion: false
+
+  # Whether or not to announce a stopwatch lapping.
+  announce-stopwatch-lapping: false
+
+  # Whether or not "/clock reload" will use previously cached
+  # seconds or seconds that are stored in the data files.
+  # true = previously cached seconds are used.
+  # false = file stored seconds are used.
+  use-cached-seconds-on-reload: true
+
+##############################
+# FORMATTING
+# Configure the look of the plugin.
+##############################
+formatting:
+  # Message to announce once a timer reaches 0 seconds remaining.
+  # Use {timer-name} for the timer's name.
+  # Color codes are supported!
+  timer-completion-announcement: "&7Timer &f{timer-name} &7has reached 0 seconds remaining!"
+
+  # Message to announce once a stopwatch laps.
+  # Use {stopwatch-name} for the stopwatch's name.
+  # Use {lap-time} for the lap timestamp.
+  # Color codes are supported!
+  stopwatch-completion-announcement: "&7Stopwatch &f{stopwatch-name} &7has lapped at &f{lap-time}&7!"
+
+  # Default formats for timers
+  # Use {timer-name} for the timer's name.
+  # Color codes are supported!
+  timer-default-format-prefix: "&b&lTimer: &f"
+  timer-default-format-suffix: ""
+
+  # Default formats for stopwatches
+  # Use {stopwatch-name} for the timer's name.
+  # Color codes are supported!
+  stopwatch-default-format-prefix: "&d&lStopwatch: &f"
+  stopwatch-default-format-suffix: ""
 ```
