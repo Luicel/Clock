@@ -19,8 +19,8 @@ public class Timer implements ConfigurationSerializable {
 
     public enum Display { NONE, ACTIONBAR }
     private Display display = Display.NONE;
-    private String formatPrefix = ConfigFile.getString("formats.timer.default-prefix");
-    private String formatSuffix = ConfigFile.getString("formats.timer.default-suffix");
+    private String formatPrefix = ConfigFile.getString("formatting.timer-default-format-prefix");
+    private String formatSuffix = ConfigFile.getString("formatting.timer-default-format-suffix");
 
     public Timer(String name, long seconds) {
         this.name = name;

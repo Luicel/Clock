@@ -1,5 +1,6 @@
 package com.luicel.clock.runnables;
 
+import com.luicel.clock.files.ConfigFile;
 import com.luicel.clock.files.TimersFile;
 import com.luicel.clock.models.Timer;
 import com.luicel.clock.utils.ChatUtils;
@@ -22,6 +23,7 @@ public class TimerRunnable extends BukkitRunnable {
             } else {
                 announceTimerCompletion();
                 timer.setState(Timer.State.INACTIVE);
+                timer.save();
             }
         } else {
             cancel();
@@ -29,12 +31,15 @@ public class TimerRunnable extends BukkitRunnable {
     }
 
     private void announceTimerCompletion() {
-        // TODO make toggable in config, have message be editable in config, and give config option for display location (maybe)
-        // also need to find a neater way of broadcasting to all (Bukkit.broadcastMessage() did not work)
-        String message = ChatUtils.format("&f&lCLOCK! &7Timer '&f" + timer.getName() + "&7' has ended!");
-        Bukkit.getConsoleSender().sendMessage(message);
-        for (Player player : Bukkit.getOnlinePlayers()) {
-            player.sendMessage(message);
+        if (ConfigFile.getBoolean("mechanics.announce-timer-completion")) {
+            String message = ChatUtils.format(ConfigFile.getString("formatting.timer-completion-announcement"));
+            if (message.contains("{timer-name}"))
+                message = message.replace("{timer-name}", timer.getName());
+
+            Bukkit.getConsoleSender().sendMessage(message);
+            for (Player player : Bukkit.getOnlinePlayers()) {
+                player.sendMessage(message);
+            }
         }
     }
 }

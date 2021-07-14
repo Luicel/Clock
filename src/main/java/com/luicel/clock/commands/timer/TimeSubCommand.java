@@ -84,7 +84,7 @@ public class TimeSubCommand extends SubCommands {
             timer.setSeconds(seconds);
             timer.save();
             sendMessage(PrefixUtils.getTimerPrefix() +
-                    String.format("Set timer '&f%s&7' to &f%s &7second" + ((seconds != 1) ? "s" : "") + ".", timer.getName(), seconds));
+                    String.format("Set the time remaining of timer '&f%s&7' to &f%s &7second" + ((seconds != 1) ? "s" : "") + ".", timer.getName(), seconds));
         } else {
             sendMessage(PrefixUtils.getErrorPrefix() + "You can not set a timer's remaining time to below 0.");
         }

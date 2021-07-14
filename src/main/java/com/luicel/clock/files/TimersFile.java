@@ -10,6 +10,7 @@ import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -86,5 +87,15 @@ public class TimersFile extends Files {
                 return true;
         }
         return false;
+    }
+
+    public static void reload() {
+        try {
+            getTimers().clear();
+            registerTimers();
+            ymlConfig.load(file);
+        } catch (InvalidConfigurationException | IOException e) {
+            e.printStackTrace();
+        }
     }
 }

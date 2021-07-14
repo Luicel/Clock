@@ -1,10 +1,11 @@
 package com.luicel.clock.files;
 
 import com.luicel.clock.annotations.FileDirectory;
-import com.luicel.clock.models.Timer;
+import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.File;
+import java.io.IOException;
 
 @FileDirectory("")
 public class ConfigFile extends Files {
@@ -22,5 +23,13 @@ public class ConfigFile extends Files {
 
     public static boolean getBoolean(String path) {
         return ymlConfig.getBoolean(path);
+    }
+
+    public static void reload() {
+        try {
+            ymlConfig.load(file);
+        } catch (InvalidConfigurationException | IOException e) {
+            e.printStackTrace();
+        }
     }
 }
