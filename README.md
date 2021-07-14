@@ -4,7 +4,7 @@ Warning: This project is still in early development, thus not all features liste
 
 # Clock
 
-This is a Minecraft 1.16 plugin written using the Spigot API. It allows players to create, delete, and configure timers and and stopwatches in-game.
+This is a Minecraft 1.16 plugin written using the Spigot API. It allows players to create, delete, and configure timers and stopwatches in-game.
 
 This project was a learning experience for me and an excuse to familize myself with new concepts (annotations) and to brush up on others (IO, Reflections, polymorphism, etc).
 
