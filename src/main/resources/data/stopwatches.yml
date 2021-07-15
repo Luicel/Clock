@@ -1,4 +1,4 @@
 # WARNING:
 # On plugin shutdown, all cached data will overwrite this file.
 # Use '/clock reload' to have your file changes take place during runtime.
-stopwatches:
+stopwatches: {}

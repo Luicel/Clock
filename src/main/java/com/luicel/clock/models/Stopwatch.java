@@ -1,9 +1,12 @@
 package com.luicel.clock.models;
 
 import com.luicel.clock.files.ConfigFile;
+import com.luicel.clock.files.data.StopwatchesFile;
+import com.luicel.clock.files.data.TimersFile;
 import com.luicel.clock.utils.ChatUtils;
 import org.bukkit.configuration.serialization.SerializableAs;
 
+import java.io.IOException;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -143,10 +146,23 @@ public class Stopwatch extends ClockObject {
     }
 
     public void save() {
-        // TODO
+        StopwatchesFile.ymlConfig.set("stopwatches." + name, this);
+        try {
+            StopwatchesFile.ymlConfig.save(StopwatchesFile.file);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        if (!StopwatchesFile.getStopwatches().contains(this))
+            StopwatchesFile.getStopwatches().add(this);
     }
 
     public void delete() {
-        // TODO
+        StopwatchesFile.ymlConfig.set("stopwatches." + name, null);
+        try {
+            StopwatchesFile.ymlConfig.save(StopwatchesFile.file);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        StopwatchesFile.getStopwatches().remove(this);
     }
 }

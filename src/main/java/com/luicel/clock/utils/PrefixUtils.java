@@ -17,6 +17,10 @@ public class PrefixUtils {
         return ChatUtils.format("&b&lTIMER! &7");
     }
 
+    public static String getStopwatchPrefix() {
+        return ChatUtils.format("&d&lSTOPWATCH! &7");
+    }
+
     public static String getHeaderColoredLine(String colorCode) {
         return ChatUtils.format(colorCode + "&l&m⎯⎯⎯&r ");
     }
