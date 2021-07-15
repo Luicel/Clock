@@ -5,6 +5,7 @@ import com.luicel.clock.commands.SubCommands;
 import com.luicel.clock.annotations.ArgumentsText;
 import com.luicel.clock.annotations.HelpOrder;
 import com.luicel.clock.files.TimersFile;
+import com.luicel.clock.models.ClockObject;
 import com.luicel.clock.models.Timer;
 import com.luicel.clock.runnables.TimerRunnable;
 import com.luicel.clock.utils.PrefixUtils;
@@ -33,8 +34,8 @@ public class StartSubCommand extends SubCommands {
 
     private void tryToStartTimer(Timer timer) {
         if (timer.getSeconds() > 0) {
-            if (timer.getState() == Timer.State.INACTIVE) {
-                timer.setState(Timer.State.ACTIVE);
+            if (timer.getState() == ClockObject.State.INACTIVE) {
+                timer.setState(ClockObject.State.ACTIVE);
                 timer.save();
                 new TimerRunnable(timer).runTaskTimer(Clock.getInstance(), 0, 20);
                 sendMessage(PrefixUtils.getTimerPrefix() + "Timer '&f" + timer.getName() + "&7' has been &astarted&7. " +

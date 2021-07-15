@@ -1,5 +1,6 @@
 package com.luicel.clock.utils;
 
+import com.luicel.clock.models.ClockObject;
 import org.bukkit.ChatColor;
 
 import java.util.ArrayList;
@@ -21,5 +22,22 @@ public class ChatUtils {
             }
         });
         return matches;
+    }
+
+    public static String getStateAsString(ClockObject.State state) {
+        String stateString = "";
+        switch (state) {
+            case ACTIVE:
+                stateString = ChatUtils.format("&aActive");
+                break;
+            case INACTIVE:
+                stateString = ChatUtils.format("&cInactive");
+                break;
+        }
+        return stateString;
+    }
+
+    public static String getDisplayAsString(ClockObject.Display display) {
+        return display.name().charAt(0) + display.name().substring(1).toLowerCase();
     }
 }

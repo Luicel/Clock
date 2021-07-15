@@ -4,6 +4,7 @@ import com.luicel.clock.annotations.ArgumentsText;
 import com.luicel.clock.annotations.HelpOrder;
 import com.luicel.clock.commands.SubCommands;
 import com.luicel.clock.files.TimersFile;
+import com.luicel.clock.models.ClockObject;
 import com.luicel.clock.models.Timer;
 import com.luicel.clock.runnables.DisplayRunnable;
 import com.luicel.clock.utils.PrefixUtils;
@@ -35,7 +36,7 @@ public class DisplaySubCommand extends SubCommands {
             case "none": {
                 if (DisplayRunnable.isBeingDisplayed(timer)) {
                     DisplayRunnable.setActionbarDisplayingObject(null);
-                    timer.setDisplay(Timer.Display.NONE);
+                    timer.setDisplay(ClockObject.Display.NONE);
                     timer.save();
                     sendMessage(PrefixUtils.getTimerPrefix() + "Timer '&f" + timer.getName() + "&7' is no longer being displayed anywhere.");
                 } else {
@@ -46,7 +47,7 @@ public class DisplaySubCommand extends SubCommands {
             case "actionbar": {
                 if (DisplayRunnable.getActionbarDisplayingObject() != timer) {
                     DisplayRunnable.setActionbarDisplayingObject(timer);
-                    timer.setDisplay(Timer.Display.ACTIONBAR);
+                    timer.setDisplay(ClockObject.Display.ACTIONBAR);
                     timer.save();
                     sendMessage(PrefixUtils.getTimerPrefix() + "Timer '&f" + timer.getName() + "&7' is now being displayed in the &factionbar&7.");
                 } else {

@@ -2,6 +2,7 @@ package com.luicel.clock.files;
 
 import com.luicel.clock.Clock;
 import com.luicel.clock.annotations.FileDirectory;
+import com.luicel.clock.models.ClockObject;
 import com.luicel.clock.models.Timer;
 import com.luicel.clock.runnables.DisplayRunnable;
 import com.luicel.clock.runnables.TimerRunnable;
@@ -46,7 +47,7 @@ public class TimersFile extends Files {
 
     private static void registerRunnables() {
         timers.forEach(timer -> {
-            if (timer.getState() == Timer.State.ACTIVE) {
+            if (timer.getState() == ClockObject.State.ACTIVE) {
                 new TimerRunnable(timer).runTaskTimer(Clock.getInstance(), 0, 20);
             }
         });
@@ -54,11 +55,11 @@ public class TimersFile extends Files {
 
     private static void handleDisplays() {
         timers.forEach(timer -> {
-            if (timer.getDisplay() == Timer.Display.ACTIONBAR) {
+            if (timer.getDisplay() == ClockObject.Display.ACTIONBAR) {
                 if (DisplayRunnable.getActionbarDisplayingObject() == null) {
                     DisplayRunnable.setActionbarDisplayingObject(timer);
                 } else {
-                    timer.setDisplay(Timer.Display.NONE);
+                    timer.setDisplay(ClockObject.Display.NONE);
                     timer.save();
                     Bukkit.getLogger().warning(String.format("[%s] Could not display Timer '%s' in actionbar as something else is already being displayed there, so we set its display status to NONE.",
                             Clock.getInstance().getClass().getSimpleName(),

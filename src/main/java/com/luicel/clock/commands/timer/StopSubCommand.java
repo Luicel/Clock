@@ -4,6 +4,7 @@ import com.luicel.clock.commands.SubCommands;
 import com.luicel.clock.annotations.ArgumentsText;
 import com.luicel.clock.annotations.HelpOrder;
 import com.luicel.clock.files.TimersFile;
+import com.luicel.clock.models.ClockObject;
 import com.luicel.clock.models.Timer;
 import com.luicel.clock.utils.PrefixUtils;
 import org.bukkit.command.CommandSender;
@@ -30,8 +31,8 @@ public class StopSubCommand extends SubCommands {
     }
 
     private void tryToStopTimer(Timer timer) {
-        if (timer.getState() == Timer.State.ACTIVE) {
-            timer.setState(Timer.State.INACTIVE);
+        if (timer.getState() == ClockObject.State.ACTIVE) {
+            timer.setState(ClockObject.State.INACTIVE);
             timer.save();
             sendMessage(PrefixUtils.getTimerPrefix() + "Timer '&f" + timer.getName() + "&7' has been &cstopped&7. " +
                     "Time remaining: &f" + timer.getTimeRemainingAsString() + "&7.");

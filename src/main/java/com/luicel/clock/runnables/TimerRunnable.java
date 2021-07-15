@@ -2,6 +2,7 @@ package com.luicel.clock.runnables;
 
 import com.luicel.clock.files.ConfigFile;
 import com.luicel.clock.files.TimersFile;
+import com.luicel.clock.models.ClockObject;
 import com.luicel.clock.models.Timer;
 import com.luicel.clock.utils.ChatUtils;
 import org.bukkit.Bukkit;
@@ -17,12 +18,12 @@ public class TimerRunnable extends BukkitRunnable {
 
     @Override
     public void run() {
-        if (timer.getState() == Timer.State.ACTIVE) {
+        if (timer.getState() == ClockObject.State.ACTIVE) {
             if (timer.getSeconds() > 0) {
                 timer.setSeconds(timer.getSeconds() - 1);
             } else {
                 announceTimerCompletion();
-                timer.setState(Timer.State.INACTIVE);
+                timer.setState(ClockObject.State.INACTIVE);
                 timer.save();
             }
         } else {

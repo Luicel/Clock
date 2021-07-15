@@ -45,7 +45,7 @@ public class ListSubCommand extends SubCommands {
     private BaseComponent[] createAndGetBaseComponent(Timer timer) {
         StringBuilder text = new StringBuilder()
             .append("&7Time Remaining: &f").append(timer.getTimeRemainingAsString()).append("\n")
-            .append("&7State: " + timer.getStateAsString()).append("\n")
+            .append("&7State: " + ChatUtils.getStateAsString(timer.getState())).append("\n")
             .append("\n")
             .append("&aClick for more info!");
 

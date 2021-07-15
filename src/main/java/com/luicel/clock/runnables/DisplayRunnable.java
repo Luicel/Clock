@@ -1,6 +1,7 @@
 package com.luicel.clock.runnables;
 
 import com.luicel.clock.files.ConfigFile;
+import com.luicel.clock.models.ClockObject;
 import com.luicel.clock.models.Timer;
 import com.luicel.clock.utils.ChatUtils;
 import net.md_5.bungee.api.ChatMessageType;
@@ -32,7 +33,7 @@ public class DisplayRunnable extends BukkitRunnable {
 
     public static void setActionbarDisplayingObject(Object object) {
         if (actionbarDisplayingObject instanceof Timer) {
-            ((Timer) actionbarDisplayingObject).setDisplay(Timer.Display.NONE);
+            ((Timer) actionbarDisplayingObject).setDisplay(ClockObject.Display.NONE);
             ((Timer) actionbarDisplayingObject).save();
         }
         actionbarDisplayingObject = object;
