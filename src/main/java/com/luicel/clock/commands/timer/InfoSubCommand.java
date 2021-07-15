@@ -37,7 +37,7 @@ public class InfoSubCommand extends SubCommands {
         sendMessage("&7State: &f" + ChatUtils.getStateAsString(timer.getState()));
         sendMessage("");
         sendMessage("&7Display: &f" + ChatUtils.getDisplayAsString(timer.getDisplay()));
-        sendMessage("&7Format Prefix: &7\"" + timer.getFormatPrefix() + "&7\"");
-        sendMessage("&7Format Suffix: &7\"" + timer.getFormatSuffix() + "&7\"");
+        sendMessage("&7Format Prefix: &7'" + timer.getFormatPrefix() + "&7'");
+        sendMessage("&7Format Suffix: &7'" + timer.getFormatSuffix() + "&7'");
     }
 }
