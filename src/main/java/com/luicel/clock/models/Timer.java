@@ -94,13 +94,14 @@ public class Timer extends ClockObject {
 
     // TODO Maybe find a way to clean this up later?
     public String getTimeRemainingAsString() {
-        final int SECONDS_IN_A_MINUTE = 60;
-        final int SECONDS_IN_A_HOUR = 3600;
         final int SECONDS_IN_A_DAY = 86400;
+        final int SECONDS_IN_A_HOUR = 3600;
+        final int SECONDS_IN_A_MINUTE = 60;
         boolean useLeadingZero = ConfigFile.getBoolean("formatting.use-leading-zero-for-single-digits");
         StringBuilder string = new StringBuilder();
         long cacheSeconds = seconds;
 
+        // Days
         if (cacheSeconds / SECONDS_IN_A_DAY > 0 || string.length() > 0) {
             long days = cacheSeconds / SECONDS_IN_A_DAY;
             cacheSeconds %= SECONDS_IN_A_DAY;
@@ -108,6 +109,7 @@ public class Timer extends ClockObject {
                 string.append("0");
             string.append(days + "d ");
         }
+        // Hours
         if (cacheSeconds / SECONDS_IN_A_HOUR > 0 || string.length() > 0) {
             long hours = cacheSeconds / SECONDS_IN_A_HOUR;
             cacheSeconds %= SECONDS_IN_A_HOUR;
@@ -115,6 +117,7 @@ public class Timer extends ClockObject {
                 string.append("0");
             string.append(hours + "h ");
         }
+        // Minutes
         if (cacheSeconds / SECONDS_IN_A_MINUTE > 0 || string.length() > 0) {
             long minutes = cacheSeconds / SECONDS_IN_A_MINUTE;
             cacheSeconds %= SECONDS_IN_A_MINUTE;
@@ -122,6 +125,7 @@ public class Timer extends ClockObject {
                 string.append("0");
             string.append(minutes + "m ");
         }
+        // Seconds
         if (useLeadingZero && cacheSeconds < 10)
             string.append("0");
         string.append(cacheSeconds + "s");

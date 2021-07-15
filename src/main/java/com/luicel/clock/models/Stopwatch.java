@@ -16,9 +16,8 @@ public class Stopwatch extends ClockObject {
     private String formatPrefix = ConfigFile.getString("formatting.stopwatch-default-format-prefix");
     private String formatSuffix = ConfigFile.getString("formatting.stopwatch-default-format-suffix");
 
-    public Stopwatch(String name, long milliseconds) {
+    public Stopwatch(String name) {
         this.name = name;
-        this.milliseconds = milliseconds;
     }
 
     public Stopwatch(Map<String, Object> map) {
@@ -104,12 +103,55 @@ public class Stopwatch extends ClockObject {
     }
 
     public String getFormattedDisplay() {
-        return formatPrefix + getTimeRemainingAsString() + formatSuffix;
+        return formatPrefix + getTimeAsString() + formatSuffix;
     }
 
-    public String getTimeRemainingAsString() {
-        // TODO
-        return null;
+    public String getTimeAsString() {
+        final int MILLISECONDS_IN_A_DAY = 86400000;
+        final int MILLISECONDS_IN_A_HOUR = 3600000;
+        final int MILLISECONDS_IN_A_MINUTE = 60000;
+        final int MILLISECONDS_IN_A_SECOND = 1000;
+        boolean useLeadingZero = ConfigFile.getBoolean("formatting.use-leading-zero-for-single-digits");
+        StringBuilder string = new StringBuilder();
+        long cacheMilliseconds = milliseconds;
+
+        // Days
+        if (cacheMilliseconds / MILLISECONDS_IN_A_DAY > 0 || string.length() > 0) {
+            long days = cacheMilliseconds / MILLISECONDS_IN_A_DAY;
+            cacheMilliseconds %= MILLISECONDS_IN_A_DAY;
+            if (useLeadingZero && days < 10)
+                string.append("0");
+            string.append(days + "d ");
+        }
+        // Hours
+        if (cacheMilliseconds / MILLISECONDS_IN_A_HOUR > 0 || string.length() > 0) {
+            long hours = cacheMilliseconds / MILLISECONDS_IN_A_HOUR;
+            cacheMilliseconds %= MILLISECONDS_IN_A_HOUR;
+            if (useLeadingZero && hours < 10)
+                string.append("0");
+            string.append(hours + "h ");
+        }
+        // Minutes
+        if (cacheMilliseconds / MILLISECONDS_IN_A_MINUTE > 0 || string.length() > 0) {
+            long minutes = cacheMilliseconds / MILLISECONDS_IN_A_MINUTE;
+            cacheMilliseconds %= MILLISECONDS_IN_A_MINUTE;
+            if (useLeadingZero && minutes < 10)
+                string.append("0");
+            string.append(minutes + "m ");
+        }
+        // Seconds
+        long seconds = cacheMilliseconds / MILLISECONDS_IN_A_SECOND;
+        cacheMilliseconds %= MILLISECONDS_IN_A_SECOND;
+        if (useLeadingZero && seconds < 10)
+            string.append("0");
+        string.append(seconds + ".");
+        // Milliseconds
+        cacheMilliseconds /= 10;
+        if (useLeadingZero && cacheMilliseconds < 10)
+            string.append("0");
+        string.append(cacheMilliseconds + "s");
+
+        return string.toString();
     }
 
     public static boolean isNameValid(String name) {
