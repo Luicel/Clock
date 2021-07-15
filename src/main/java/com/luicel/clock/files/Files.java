@@ -33,7 +33,8 @@ public class Files {
 
     protected File copyDefault(String fileName) {
         try {
-            BufferedReader reader = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream("/" + fileName)));
+            String resourcePath = FOLDER.replace(Clock.getInstance().getDataFolder().toString(), "");
+            BufferedReader reader = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream(resourcePath + fileName)));
             BufferedWriter writer = new BufferedWriter(new FileWriter(FOLDER + fileName));
 
             String line;

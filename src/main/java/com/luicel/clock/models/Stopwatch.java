@@ -61,29 +61,12 @@ public class Stopwatch extends ClockObject {
         return state;
     }
 
-    public String getStateAsString() {
-        String stateString = "";
-        switch (state) {
-            case ACTIVE:
-                stateString = ChatUtils.format("&aActive");
-                break;
-            case INACTIVE:
-                stateString = ChatUtils.format("&cInactive");
-                break;
-        }
-        return stateString;
-    }
-
     public void setDisplay(ClockObject.Display display) {
         this.display = display;
     }
 
     public ClockObject.Display getDisplay() {
         return display;
-    }
-
-    public String getDisplayStatusAsString() {
-        return display.name().charAt(0) + display.name().substring(1).toLowerCase();
     }
 
     public void setFormatPrefix(String formatPrefix) {

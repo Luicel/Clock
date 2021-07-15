@@ -3,11 +3,10 @@ package com.luicel.clock;
 import com.luicel.clock.annotations.FileDirectory;
 import com.luicel.clock.commands.Commands;
 import com.luicel.clock.files.Files;
-import com.luicel.clock.files.TimersFile;
+import com.luicel.clock.files.data.TimersFile;
 import com.luicel.clock.models.ClockObject;
 import com.luicel.clock.models.Timer;
 import com.luicel.clock.runnables.DisplayRunnable;
-import org.bukkit.configuration.serialization.ConfigurationSerializable;
 import org.bukkit.configuration.serialization.ConfigurationSerialization;
 import org.bukkit.configuration.serialization.SerializableAs;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -15,10 +14,7 @@ import org.reflections.Reflections;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.util.Collections;
 import java.util.Comparator;
-import java.util.List;
 import java.util.Set;
 
 public final class Clock extends JavaPlugin {

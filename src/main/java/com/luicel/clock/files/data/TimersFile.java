@@ -1,7 +1,8 @@
-package com.luicel.clock.files;
+package com.luicel.clock.files.data;
 
 import com.luicel.clock.Clock;
 import com.luicel.clock.annotations.FileDirectory;
+import com.luicel.clock.files.Files;
 import com.luicel.clock.models.ClockObject;
 import com.luicel.clock.models.Timer;
 import com.luicel.clock.runnables.DisplayRunnable;
@@ -11,7 +12,6 @@ import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -61,7 +61,7 @@ public class TimersFile extends Files {
                 } else {
                     timer.setDisplay(ClockObject.Display.NONE);
                     timer.save();
-                    Bukkit.getLogger().warning(String.format("[%s] Could not display Timer '%s' in actionbar as something else is already being displayed there, so we set its display status to NONE.",
+                    Bukkit.getLogger().warning(String.format("[%s] Could not display timer '%s' in actionbar as something else is already being displayed there, so we set its display status to NONE.",
                             Clock.getInstance().getClass().getSimpleName(),
                             timer.getName()
                     ));

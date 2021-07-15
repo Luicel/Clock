@@ -1,8 +1,7 @@
 package com.luicel.clock.models;
 
 import com.luicel.clock.files.ConfigFile;
-import com.luicel.clock.files.TimersFile;
-import org.bukkit.configuration.serialization.ConfigurationSerializable;
+import com.luicel.clock.files.data.TimersFile;
 import org.bukkit.configuration.serialization.SerializableAs;
 
 import java.io.IOException;

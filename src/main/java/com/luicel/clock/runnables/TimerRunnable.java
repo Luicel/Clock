@@ -1,7 +1,6 @@
 package com.luicel.clock.runnables;
 
 import com.luicel.clock.files.ConfigFile;
-import com.luicel.clock.files.TimersFile;
 import com.luicel.clock.models.ClockObject;
 import com.luicel.clock.models.Timer;
 import com.luicel.clock.utils.ChatUtils;

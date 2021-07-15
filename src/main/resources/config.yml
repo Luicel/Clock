@@ -9,10 +9,11 @@ mechanics:
   # Whether or not to announce a stopwatch lapping.
   announce-stopwatch-lapping: false
 
-  # Whether or not "/clock reload" will use previously cached
-  # seconds or seconds that are stored in the data files.
-  # true = previously cached seconds are used.
-  # false = file stored seconds are used.
+  # Whether or not '/clock reload' will use previously cached
+  # seconds/milliseconds or seconds/milliseconds that are stored
+  # in the data files.
+  # true = previously cached seconds/milliseconds are used.
+  # false = file stored seconds/milliseconds are used.
   use-cached-seconds-on-reload: true
 
 ##############################
