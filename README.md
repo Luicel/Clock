@@ -34,7 +34,7 @@ Stopwatch
   /stopwatch lap <name>
   /stopwatch reset <name>
   /stopwatch display <name> <none/actionbar>
-  /timer format <name> <prefix/suffix> <text/clear>
+  /stopwatch format <name> <prefix/suffix> <text/clear>
 ```
 
 ### Config
