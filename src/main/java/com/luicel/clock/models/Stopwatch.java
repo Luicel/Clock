@@ -2,27 +2,28 @@ package com.luicel.clock.models;
 
 import com.luicel.clock.files.ConfigFile;
 import com.luicel.clock.utils.ChatUtils;
+import org.bukkit.configuration.serialization.SerializableAs;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+@SerializableAs("Stopwatch")
 public class Stopwatch extends ClockObject {
     private String name = "";
-    private long seconds = 0;
+    private long milliseconds = 0;
     private ClockObject.State state = ClockObject.State.INACTIVE;
-
     private ClockObject.Display display = ClockObject.Display.NONE;
-    private String formatPrefix = ConfigFile.getString("formatting.timer-default-format-prefix");
-    private String formatSuffix = ConfigFile.getString("formatting.timer-default-format-suffix");
+    private String formatPrefix = ConfigFile.getString("formatting.stopwatch-default-format-prefix");
+    private String formatSuffix = ConfigFile.getString("formatting.stopwatch-default-format-suffix");
 
-    public Stopwatch(String name, long seconds) {
+    public Stopwatch(String name, long milliseconds) {
         this.name = name;
-        this.seconds = seconds;
+        this.milliseconds = milliseconds;
     }
 
     public Stopwatch(Map<String, Object> map) {
         this.name = map.getOrDefault("name", name).toString();
-        this.seconds = Integer.parseInt(map.getOrDefault("seconds", seconds).toString());
+        this.milliseconds = Integer.parseInt(map.getOrDefault("milliseconds", milliseconds).toString());
         this.state = ClockObject.State.valueOf(map.getOrDefault("state", state.name()).toString());
         this.display = ClockObject.Display.valueOf(map.getOrDefault("display", display.name()).toString());
         this.formatPrefix = map.getOrDefault("formatPrefix", formatPrefix).toString();
@@ -33,7 +34,7 @@ public class Stopwatch extends ClockObject {
     public Map<String, Object> serialize() {
         return new LinkedHashMap<String, Object>(){{
             put("name", name);
-            put("seconds", seconds);
+            put("milliseconds", milliseconds);
             put("state", state.name());
             put("display", display.name());
             put("formatPrefix", formatPrefix);
@@ -45,12 +46,12 @@ public class Stopwatch extends ClockObject {
         return name;
     }
 
-    public void setSeconds(long seconds) {
-        this.seconds = seconds;
+    public void setMilliseconds(long milliseconds) {
+        this.milliseconds = milliseconds;
     }
 
-    public long getSeconds() {
-        return seconds;
+    public long getMilliseconds() {
+        return milliseconds;
     }
 
     public void setState(ClockObject.State state) {

@@ -4,6 +4,7 @@ import com.luicel.clock.annotations.FileDirectory;
 import com.luicel.clock.commands.Commands;
 import com.luicel.clock.files.Files;
 import com.luicel.clock.files.TimersFile;
+import com.luicel.clock.models.ClockObject;
 import com.luicel.clock.models.Timer;
 import com.luicel.clock.runnables.DisplayRunnable;
 import org.bukkit.configuration.serialization.ConfigurationSerializable;
@@ -40,7 +41,7 @@ public final class Clock extends JavaPlugin {
     }
 
     private void registerSerializables() {
-        new Reflections("com.luicel.clock.models").getSubTypesOf(ConfigurationSerializable.class).forEach(model -> {
+        new Reflections("com.luicel.clock.models").getSubTypesOf(ClockObject.class).forEach(model -> {
             String alias = model.getAnnotation(SerializableAs.class).value();
             ConfigurationSerialization.registerClass(model, alias);
         });

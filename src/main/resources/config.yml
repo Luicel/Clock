@@ -20,6 +20,11 @@ mechanics:
 # Configure the look of the plugin.
 ##############################
 formatting:
+  # Whether or not to place a 0 before single digit numbers.
+  # true = 04d 25h 02m 08s
+  # false = 4d 25h 2m 8s
+  use-leading-zero-for-single-digits: true
+
   # Message to announce once a timer reaches 0 seconds remaining.
   # Use {timer-name} for the timer's name.
   # Color codes are supported!

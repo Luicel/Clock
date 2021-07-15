@@ -10,7 +10,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 @SerializableAs("Timer")
-public class Timer implements ConfigurationSerializable {
+public class Timer extends ClockObject {
     private String name = "";
     private long seconds = 0;
     private ClockObject.State state = ClockObject.State.INACTIVE;
@@ -97,25 +97,34 @@ public class Timer implements ConfigurationSerializable {
         final int SECONDS_IN_A_MINUTE = 60;
         final int SECONDS_IN_A_HOUR = 3600;
         final int SECONDS_IN_A_DAY = 86400;
+        boolean useLeadingZero = ConfigFile.getBoolean("formatting.use-leading-zero-for-single-digits");
         StringBuilder string = new StringBuilder();
         long cacheSeconds = seconds;
 
         if (cacheSeconds / SECONDS_IN_A_DAY > 0 || string.length() > 0) {
             long days = cacheSeconds / SECONDS_IN_A_DAY;
             cacheSeconds %= SECONDS_IN_A_DAY;
-            string.append(String.format("%s%sd ", (days < 10) ? "0" : "", days));
+            if (useLeadingZero && days < 10)
+                string.append("0");
+            string.append(days + "d ");
         }
         if (cacheSeconds / SECONDS_IN_A_HOUR > 0 || string.length() > 0) {
             long hours = cacheSeconds / SECONDS_IN_A_HOUR;
             cacheSeconds %= SECONDS_IN_A_HOUR;
-            string.append(String.format("%s%sh ", (hours < 10) ? "0" : "", hours));
+            if (useLeadingZero && hours < 10)
+                string.append("0");
+            string.append(hours + "h ");
         }
         if (cacheSeconds / SECONDS_IN_A_MINUTE > 0 || string.length() > 0) {
             long minutes = cacheSeconds / SECONDS_IN_A_MINUTE;
             cacheSeconds %= SECONDS_IN_A_MINUTE;
-            string.append(String.format("%s%sm ", (minutes < 10) ? "0" : "", minutes));
+            if (useLeadingZero && minutes < 10)
+                string.append("0");
+            string.append(minutes + "m ");
         }
-        string.append(String.format("%s%ss", (cacheSeconds < 10) ? "0" : "", cacheSeconds));
+        if (useLeadingZero && cacheSeconds < 10)
+            string.append("0");
+        string.append(cacheSeconds + "s");
 
         return string.toString();
     }
