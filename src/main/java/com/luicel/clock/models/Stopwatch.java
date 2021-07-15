@@ -133,7 +133,7 @@ public class Stopwatch extends ClockObject {
         string.append(seconds + ".");
         // Milliseconds
         cacheMilliseconds /= 10;
-        if (useLeadingZero && cacheMilliseconds < 10)
+        if (cacheMilliseconds < 10)
             string.append("0");
         string.append(cacheMilliseconds + "s");
 
