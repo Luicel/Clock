@@ -4,6 +4,7 @@ import com.luicel.clock.annotations.ArgumentsText;
 import com.luicel.clock.annotations.HelpOrder;
 import com.luicel.clock.commands.SubCommands;
 import com.luicel.clock.files.ConfigFile;
+import com.luicel.clock.files.data.StopwatchesFile;
 import com.luicel.clock.files.data.TimersFile;
 import com.luicel.clock.models.Timer;
 import com.luicel.clock.runnables.DisplayRunnable;
@@ -37,6 +38,7 @@ public class ReloadSubCommand extends SubCommands {
 
             ConfigFile.reload();
             TimersFile.reload();
+            StopwatchesFile.reload();
 
             TimersFile.getTimers().forEach(timer ->
                     timer.setSeconds(map.get(timer.getName()))
@@ -45,6 +47,7 @@ public class ReloadSubCommand extends SubCommands {
         } else {
             ConfigFile.reload();
             TimersFile.reload();
+            StopwatchesFile.reload();
         }
     }
 }

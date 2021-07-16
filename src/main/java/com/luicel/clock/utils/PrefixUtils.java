@@ -5,10 +5,6 @@ public class PrefixUtils {
         return ChatUtils.format("&c&lERROR! &7");
     }
 
-    public static String getInternalErrorPrefix() {
-        return ChatUtils.format("&c&lINTERNAL ERROR! &7");
-    }
-
     public static String getClockPrefix() {
         return ChatUtils.format("&e&lCLOCK! &7");
     }

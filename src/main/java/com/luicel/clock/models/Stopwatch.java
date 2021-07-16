@@ -2,19 +2,20 @@ package com.luicel.clock.models;
 
 import com.luicel.clock.files.ConfigFile;
 import com.luicel.clock.files.data.StopwatchesFile;
-import com.luicel.clock.files.data.TimersFile;
-import com.luicel.clock.utils.ChatUtils;
+import org.bukkit.Bukkit;
 import org.bukkit.configuration.serialization.SerializableAs;
 
 import java.io.IOException;
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @SerializableAs("Stopwatch")
 public class Stopwatch extends ClockObject {
     private String name = "";
     private long milliseconds = 0;
     private ClockObject.State state = ClockObject.State.INACTIVE;
+    private long currentLapMilliseconds = 0;
+    private List<Long> laps = new ArrayList<>();
     private ClockObject.Display display = ClockObject.Display.NONE;
     private String formatPrefix = ConfigFile.getString("formatting.stopwatch-default-format-prefix");
     private String formatSuffix = ConfigFile.getString("formatting.stopwatch-default-format-suffix");
@@ -27,6 +28,15 @@ public class Stopwatch extends ClockObject {
         this.name = map.getOrDefault("name", name).toString();
         this.milliseconds = Integer.parseInt(map.getOrDefault("milliseconds", milliseconds).toString());
         this.state = ClockObject.State.valueOf(map.getOrDefault("state", state.name()).toString());
+        this.currentLapMilliseconds = Integer.parseInt(map.getOrDefault("currentLapMilliseconds", currentLapMilliseconds).toString());
+        // Fix for Java reading file values as an Integer
+        if (map.containsKey("laps")) {
+            ((List<Object>) map.get("laps")).forEach(lap -> {
+                addToLaps(Long.parseLong(lap.toString()));
+            });
+        }
+        // Reverse list as map retrieves it backwards
+        Collections.reverse(laps);
         this.display = ClockObject.Display.valueOf(map.getOrDefault("display", display.name()).toString());
         this.formatPrefix = map.getOrDefault("formatPrefix", formatPrefix).toString();
         this.formatSuffix = map.getOrDefault("formatSuffix", formatSuffix).toString();
@@ -38,6 +48,8 @@ public class Stopwatch extends ClockObject {
             put("name", name);
             put("milliseconds", milliseconds);
             put("state", state.name());
+            put("currentLapMilliseconds", currentLapMilliseconds);
+            put("laps", laps);
             put("display", display.name());
             put("formatPrefix", formatPrefix);
             put("formatSuffix", formatSuffix);
@@ -68,6 +80,24 @@ public class Stopwatch extends ClockObject {
         this.display = display;
     }
 
+    public void setCurrentLapMilliseconds(long currentLapMilliseconds) {
+        this.currentLapMilliseconds = currentLapMilliseconds;
+    }
+
+    public long getCurrentLapMilliseconds() {
+        return currentLapMilliseconds;
+    }
+
+    public void addToLaps(long lapMilliseconds) {
+        laps.add(0, lapMilliseconds);
+        while (laps.size() >= 6)
+            laps.remove(5);
+    }
+
+    public List<Long> getLaps() {
+        return laps;
+    }
+
     public ClockObject.Display getDisplay() {
         return display;
     }
@@ -93,6 +123,10 @@ public class Stopwatch extends ClockObject {
     }
 
     public String getTimeAsString() {
+        return convertTimeToString(milliseconds);
+    }
+
+    public static String convertTimeToString(long milliseconds) {
         final int MILLISECONDS_IN_A_DAY = 86400000;
         final int MILLISECONDS_IN_A_HOUR = 3600000;
         final int MILLISECONDS_IN_A_MINUTE = 60000;

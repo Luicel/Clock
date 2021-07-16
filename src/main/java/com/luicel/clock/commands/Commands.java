@@ -5,6 +5,8 @@ import com.luicel.clock.annotations.FileDirectory;
 import com.luicel.clock.annotations.HelpOrder;
 import com.luicel.clock.files.Files;
 import com.luicel.clock.utils.ChatUtils;
+import com.luicel.clock.utils.PrefixUtils;
+import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -40,8 +42,13 @@ public abstract class Commands implements TabExecutor {
             Constructor<?> constructor = subCommandClass.getConstructor(CommandSender.class, String.class, String[].class);
             constructor.setAccessible(true);
             constructor.newInstance(sender, label, args);
-        } catch (NoSuchMethodException | IllegalAccessException | InstantiationException | InvocationTargetException | NullPointerException e) {
+        } catch (NoSuchMethodException | IllegalAccessException | InstantiationException | NullPointerException e) {
             printHelpMessage((Player) sender);
+        } catch (InvocationTargetException e) {
+            if (sender instanceof Player)
+                sender.sendMessage(PrefixUtils.getErrorPrefix() +
+                        "An error has occurred. Check console for more information.");
+            e.printStackTrace();
         }
     }
 
