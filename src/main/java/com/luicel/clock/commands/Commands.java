@@ -49,7 +49,6 @@ public abstract class Commands implements TabExecutor {
             executeMethod.invoke(subCommandInstance);
         } catch (NoSuchMethodException | IllegalAccessException | InstantiationException | NullPointerException e) {
             printHelpMessage((Player) sender);
-            e.printStackTrace();
         } catch (InvocationTargetException e) {
             if (sender instanceof Player)
                 sender.sendMessage(PrefixUtils.getErrorPrefix() +

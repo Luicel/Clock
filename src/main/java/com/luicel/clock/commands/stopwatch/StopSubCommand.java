@@ -37,7 +37,7 @@ public class StopSubCommand extends SubCommands {
             stopwatch.setState(ClockObject.State.INACTIVE);
             stopwatch.save();
             sendMessage(PrefixUtils.getStopwatchPrefix() + "Stopwatch '&f" + stopwatch.getName() + "&7' has been &cstopped&7. " +
-                    "Time: &f" + stopwatch.getTimeAsString() + "&7.");
+                    "Time: &f" + stopwatch.getTimeAsString() + " &7(" + stopwatch.getCurrentLapTimeAsString() + ").");
         } else {
             sendMessage(PrefixUtils.getErrorPrefix() + "Stopwatch '&f" + stopwatch.getName() + "&7' is not active!");
         }

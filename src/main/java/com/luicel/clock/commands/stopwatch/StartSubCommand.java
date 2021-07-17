@@ -38,7 +38,7 @@ public class StartSubCommand extends SubCommands {
             stopwatch.save();
             new StopwatchRunnable(stopwatch).runTaskTimer(Clock.getInstance(), 0, 1);
             sendMessage(PrefixUtils.getStopwatchPrefix() + "Stopwatch '&f" + stopwatch.getName() + "&7' has been &astarted&7. " +
-                    "Time: &f" + stopwatch.getTimeAsString() + "&7.");
+                    "Time: &f" + stopwatch.getTimeAsString() + " &7(" + stopwatch.getCurrentLapTimeAsString() + ").");
         } else {
             sendMessage(PrefixUtils.getErrorPrefix() + "Stopwatch '&f" + stopwatch.getName() + "&7' is already active!");
         }
