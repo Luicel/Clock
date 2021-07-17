@@ -38,7 +38,8 @@ public class InfoSubCommand extends SubCommands {
     private void printStopwatchInfo(Stopwatch stopwatch) {
         sendMessage(PrefixUtils.getHeaderColoredLine("&d") + "&d&lSTOPWATCH INFO:");
         sendMessage("&7Name: &f" + stopwatch.getName());
-        sendMessage("&7Time: &f" + stopwatch.getTimeAsString());
+        sendMessage("&7Time: &f" + stopwatch.getTimeAsString() + " &7(" +
+                        Stopwatch.convertTimeToString(stopwatch.getCurrentLapMilliseconds()) + ")");
         sendMessage("&7State: &f" + ChatUtils.getStateAsString(stopwatch.getState()));
         sendLapMessage(stopwatch);
         sendMessage("");

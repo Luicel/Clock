@@ -42,7 +42,8 @@ public class ListSubCommand extends SubCommands {
 
     private BaseComponent[] createAndGetBaseComponent(Stopwatch stopwatch) {
         StringBuilder text = new StringBuilder()
-                .append("&7Time: &f").append(stopwatch.getTimeAsString()).append("\n")
+                .append("&7Time: &f").append(stopwatch.getTimeAsString() + " &7(" +
+                        Stopwatch.convertTimeToString(stopwatch.getCurrentLapMilliseconds()) + ")").append("\n")
                 .append("&7State: " + ChatUtils.getStateAsString(stopwatch.getState())).append("\n")
                 .append("\n")
                 .append("&aClick for more info!");

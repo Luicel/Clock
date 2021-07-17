@@ -14,7 +14,7 @@ mechanics:
   # in the data files.
   # true = previously cached seconds/milliseconds are used.
   # false = file stored seconds/milliseconds are used.
-  use-cached-seconds-on-reload: true
+  use-cached-timer-seconds-on-reload: true
 
 ##############################
 # FORMATTING

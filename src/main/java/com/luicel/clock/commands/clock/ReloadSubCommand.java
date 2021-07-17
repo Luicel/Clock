@@ -30,7 +30,7 @@ public class ReloadSubCommand extends SubCommands {
 
     private void reloadTimers() {
         // TODO cleanup code
-        if (ConfigFile.getBoolean("mechanics.use-cached-seconds-on-reload")) {
+        if (ConfigFile.getBoolean("mechanics.use-cached-timer-seconds-on-reload")) {
             Map<String, Long> map = new HashMap<>();
             TimersFile.getTimers().forEach(timer ->
                     map.put(timer.getName(), timer.getSeconds())

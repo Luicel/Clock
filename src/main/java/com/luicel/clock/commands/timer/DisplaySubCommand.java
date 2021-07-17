@@ -40,7 +40,7 @@ public class DisplaySubCommand extends SubCommands {
                     timer.save();
                     sendMessage(PrefixUtils.getTimerPrefix() + "Timer '&f" + timer.getName() + "&7' is no longer being displayed anywhere.");
                 } else {
-                    sendMessage(PrefixUtils.getErrorPrefix() + "Timer '&f" + timer.getName() + "&7' is not being displayed anywhere.");
+                    sendMessage(PrefixUtils.getErrorPrefix() + "Timer '&f" + timer.getName() + "&7' is already not being displayed anywhere.");
                 }
                 break;
             }
@@ -51,7 +51,7 @@ public class DisplaySubCommand extends SubCommands {
                     timer.save();
                     sendMessage(PrefixUtils.getTimerPrefix() + "Timer '&f" + timer.getName() + "&7' is now being displayed in the &factionbar&7.");
                 } else {
-                    sendMessage(PrefixUtils.getErrorPrefix() + "Timer '&f" + timer.getName() + "&7' is already being displayed there.");
+                    sendMessage(PrefixUtils.getErrorPrefix() + "Timer '&f" + timer.getName() + "&7' is already being displayed in the &factionbar&7");
                 }
                 break;
             }
