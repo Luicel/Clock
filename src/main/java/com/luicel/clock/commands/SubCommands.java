@@ -14,8 +14,6 @@ public abstract class SubCommands {
         this.sender = sender;
         this.label = label;
         this.args = args;
-
-        execute();
     }
 
     // Variable Getters and Setters -----

@@ -1,14 +1,10 @@
 package com.luicel.clock.commands;
 
 import com.luicel.clock.annotations.ArgumentsText;
-import com.luicel.clock.annotations.FileDirectory;
 import com.luicel.clock.annotations.HelpOrder;
-import com.luicel.clock.files.Files;
 import com.luicel.clock.utils.ChatUtils;
 import com.luicel.clock.utils.PrefixUtils;
-import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabExecutor;
 import org.bukkit.entity.Player;
@@ -16,7 +12,11 @@ import org.reflections.Reflections;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
-import java.util.*;
+import java.lang.reflect.Method;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public abstract class Commands implements TabExecutor {
     private final Map<String, Class<? extends SubCommands>> subCommandClasses = new HashMap<>();
@@ -39,11 +39,17 @@ public abstract class Commands implements TabExecutor {
     protected void executeCommand(CommandSender sender, Command command, String label, String[] args) {
         try {
             Class<? extends SubCommands> subCommandClass = subCommandClasses.get(args[0]);
+
             Constructor<?> constructor = subCommandClass.getConstructor(CommandSender.class, String.class, String[].class);
             constructor.setAccessible(true);
-            constructor.newInstance(sender, label, args);
+            Object subCommandInstance = constructor.newInstance(sender, label, args);
+
+            Method executeMethod = subCommandClass.getDeclaredMethod("execute");
+            executeMethod.setAccessible(true);
+            executeMethod.invoke(subCommandInstance);
         } catch (NoSuchMethodException | IllegalAccessException | InstantiationException | NullPointerException e) {
             printHelpMessage((Player) sender);
+            e.printStackTrace();
         } catch (InvocationTargetException e) {
             if (sender instanceof Player)
                 sender.sendMessage(PrefixUtils.getErrorPrefix() +

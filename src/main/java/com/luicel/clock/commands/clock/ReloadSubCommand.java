@@ -6,6 +6,7 @@ import com.luicel.clock.commands.SubCommands;
 import com.luicel.clock.files.ConfigFile;
 import com.luicel.clock.files.data.StopwatchesFile;
 import com.luicel.clock.files.data.TimersFile;
+import com.luicel.clock.models.Stopwatch;
 import com.luicel.clock.models.Timer;
 import com.luicel.clock.runnables.DisplayRunnable;
 import com.luicel.clock.utils.PrefixUtils;
@@ -17,37 +18,67 @@ import java.util.Map;
 @HelpOrder(2)
 @ArgumentsText("")
 public class ReloadSubCommand extends SubCommands {
+    private final Map<String, Long> cachedTimerSeconds;
+    private final Map<String, Long> cachedStopwatchMilliseconds;
+    private final Map<String, Long> cachedStopwatchCurrentLapMilliseconds;
+
     public ReloadSubCommand(CommandSender sender, String label, String[] args) {
         super(sender, label, args);
+
+        cachedTimerSeconds = new HashMap<>();
+        cachedStopwatchMilliseconds = new HashMap<>();
+        cachedStopwatchCurrentLapMilliseconds = new HashMap<>();
     }
 
     @Override
     protected void execute() {
         DisplayRunnable.clearDisplayingObjects();
-        reloadTimers();
+        reload();
         sendMessage(PrefixUtils.getClockPrefix() + "Successfully reloaded!");
     }
 
-    private void reloadTimers() {
-        // TODO cleanup code
+    private void reload() {
+        cacheSeconds();
+
+        ConfigFile.reload();
+        TimersFile.reload();
+        StopwatchesFile.reload();
+
+        applyCachedSeconds();
+    }
+
+    private void cacheSeconds() {
+        cachedTimerSeconds.clear();
         if (ConfigFile.getBoolean("mechanics.use-cached-timer-seconds-on-reload")) {
-            Map<String, Long> map = new HashMap<>();
             TimersFile.getTimers().forEach(timer ->
-                    map.put(timer.getName(), timer.getSeconds())
-            );
+                cachedTimerSeconds.put(timer.getName(), timer.getSeconds()
+            ));
+        }
 
-            ConfigFile.reload();
-            TimersFile.reload();
-            StopwatchesFile.reload();
+        if (!cachedStopwatchMilliseconds.isEmpty()) cachedStopwatchMilliseconds.clear();
+        StopwatchesFile.getStopwatches().forEach(stopwatch ->
+            cachedStopwatchMilliseconds.put(stopwatch.getName(), stopwatch.getMilliseconds())
+        );
+        if (!cachedStopwatchCurrentLapMilliseconds.isEmpty()) cachedStopwatchCurrentLapMilliseconds.clear();
+        StopwatchesFile.getStopwatches().forEach(stopwatch ->
+                cachedStopwatchCurrentLapMilliseconds.put(stopwatch.getName(), stopwatch.getCurrentLapMilliseconds())
+        );
+    }
 
+    private void applyCachedSeconds() {
+        if (!cachedTimerSeconds.isEmpty()) {
             TimersFile.getTimers().forEach(timer ->
-                    timer.setSeconds(map.get(timer.getName()))
+                    timer.setSeconds(cachedTimerSeconds.get(timer.getName()))
             );
             TimersFile.getTimers().forEach(Timer::save);
-        } else {
-            ConfigFile.reload();
-            TimersFile.reload();
-            StopwatchesFile.reload();
         }
+
+        StopwatchesFile.getStopwatches().forEach(stopwatch ->
+            stopwatch.setMilliseconds(cachedStopwatchMilliseconds.get(stopwatch.getName()))
+        );
+        StopwatchesFile.getStopwatches().forEach(stopwatch ->
+            stopwatch.setCurrentLapMilliseconds(cachedStopwatchCurrentLapMilliseconds.get(stopwatch.getName()))
+        );
+        StopwatchesFile.getStopwatches().forEach(Stopwatch::save);
     }
 }

@@ -20,7 +20,7 @@ public class InfoSubCommand extends SubCommands {
     }
 
     @Override
-    public void execute() {
+    protected void execute() {
         sendMessage(PrefixUtils.getHeaderColoredLine("&e") + "&e&lCLOCK: &f(v" + Clock.getInstance().getDescription().getVersion() + ")");
         sendMessage("&7Create, delete, and configure timers and stopwatches");
         sendMessage("&7completely in-game!");
