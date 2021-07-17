@@ -55,11 +55,11 @@ public class ReloadSubCommand extends SubCommands {
             ));
         }
 
-        if (!cachedStopwatchMilliseconds.isEmpty()) cachedStopwatchMilliseconds.clear();
+        cachedStopwatchMilliseconds.clear();
         StopwatchesFile.getStopwatches().forEach(stopwatch ->
             cachedStopwatchMilliseconds.put(stopwatch.getName(), stopwatch.getMilliseconds())
         );
-        if (!cachedStopwatchCurrentLapMilliseconds.isEmpty()) cachedStopwatchCurrentLapMilliseconds.clear();
+        cachedStopwatchCurrentLapMilliseconds.clear();
         StopwatchesFile.getStopwatches().forEach(stopwatch ->
                 cachedStopwatchCurrentLapMilliseconds.put(stopwatch.getName(), stopwatch.getCurrentLapMilliseconds())
         );

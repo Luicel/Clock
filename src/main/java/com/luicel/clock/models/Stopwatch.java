@@ -88,6 +88,10 @@ public class Stopwatch extends ClockObject {
         return currentLapMilliseconds;
     }
 
+    public String getCurrentLapTimeAsString() {
+        return convertTimeToString(currentLapMilliseconds);
+    }
+
     public void addToLaps(long lapMilliseconds) {
         laps.add(0, lapMilliseconds);
         while (laps.size() >= 6)

@@ -38,7 +38,7 @@ public class LapSubCommand extends SubCommands {
         if (ConfigFile.getBoolean("mechanics.announce-stopwatch-lapping")) {
             String message = ChatUtils.format(ConfigFile.getString("formatting.stopwatch-lap-announcement"));
             message = message.replace("{stopwatchName}", stopwatch.getName());
-            message = message.replace("{lapTime}", Stopwatch.convertTimeToString(stopwatch.getCurrentLapMilliseconds()));
+            message = message.replace("{lapTime}", stopwatch.getCurrentLapTimeAsString());
 
             Bukkit.getConsoleSender().sendMessage(message);
             for (Player player : Bukkit.getOnlinePlayers()) {

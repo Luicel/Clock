@@ -45,7 +45,7 @@ public class DisplayRunnable extends BukkitRunnable {
         } else if (displayObject instanceof Stopwatch) {
             message = message.replace("{stopwatchName}", ((Stopwatch) displayObject).getName());
             message = message.replace("{currentLapTime}",
-                    Stopwatch.convertTimeToString(((Stopwatch) displayObject).getCurrentLapMilliseconds()));
+                    ((Stopwatch) actionbarDisplayingObject).getCurrentLapTimeAsString());
             return message;
         }
         return message;
