@@ -1,3 +1,5 @@
+config-version: 1.0.0
+
 ##############################
 # MECHANICS
 # Configure the functionality of the plugin.
@@ -10,10 +12,10 @@ mechanics:
   announce-stopwatch-lapping: false
 
   # Whether or not '/clock reload' will use previously cached
-  # seconds/milliseconds or seconds/milliseconds that are stored
-  # in the data files.
-  # true = previously cached seconds/milliseconds are used.
-  # false = file stored seconds/milliseconds are used.
+  # seconds or seconds that are stored in the data files when
+  # reloading timers.
+  # true = previously cached seconds are used.
+  # false = file stored seconds are used.
   use-cached-timer-seconds-on-reload: true
 
 ##############################
@@ -35,7 +37,7 @@ formatting:
   # Use '{stopwatchName}' for the stopwatch's name.
   # Use '{lapTime}' for the lap timestamp.
   # These variables work in-game too! And color codes are supported!
-  stopwatch-lap-announcement: "&7Stopwatch &f{stopwatch-name} &7has lapped at &f{lap-time}&7!"
+  stopwatch-lap-announcement: "&7Stopwatch &f{stopwatch-name} &7has been lapped at &f{lap-time}&7!"
 
   # Default formats for timers.
   # Use '{timerName}' for the timer's name.
