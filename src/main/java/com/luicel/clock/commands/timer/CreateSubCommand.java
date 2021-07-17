@@ -22,8 +22,6 @@ public class CreateSubCommand extends SubCommands {
         } else {
             if (TimersFile.doesTimerWithNameExist(getArgs()[1])) {
                 sendMessage(PrefixUtils.getErrorPrefix() + "A timer with the name '&f" + getArgs()[1] + "&7' already exists!");
-            } else if (!Timer.isNameValid(getArgs()[1])) {
-                sendMessage(PrefixUtils.getErrorPrefix() + "That name is invalid. Please only use alphanumeric characters, hyphens, and underscores.");
             } else {
                 createTimer();
             }

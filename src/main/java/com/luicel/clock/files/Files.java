@@ -1,19 +1,20 @@
 package com.luicel.clock.files;
 
 import com.luicel.clock.Clock;
+import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.*;
 
 public class Files {
-    private String FOLDER = Clock.getInstance().getDataFolder() + "\\";
+    private String FOLDER = Clock.getInstance().getDataFolder() + "/";
 
     protected YamlConfiguration createConfig(String fileName, String directory) {
         if (!Clock.getInstance().getDataFolder().exists())
             Clock.getInstance().getDataFolder().mkdir();
 
         if (directory.length() > 0) {
-            FOLDER += directory + "\\";
+            FOLDER += directory + "/";
 
             File dataDirectory = new File(Clock.getInstance().getDataFolder(), directory);
             if (!dataDirectory.exists())
@@ -34,7 +35,7 @@ public class Files {
     protected File copyDefault(String fileName) {
         try {
             String resourcePath = FOLDER.replace(Clock.getInstance().getDataFolder().toString(), "");
-            BufferedReader reader = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream(resourcePath + fileName)));
+            BufferedReader reader = new BufferedReader(new InputStreamReader(Files.class.getResourceAsStream(resourcePath + fileName)));
             BufferedWriter writer = new BufferedWriter(new FileWriter(FOLDER + fileName));
 
             String line;

@@ -174,11 +174,6 @@ public class Stopwatch extends ClockObject {
         return string.toString();
     }
 
-    public static boolean isNameValid(String name) {
-        // TODO
-        return true;
-    }
-
     public void save() {
         StopwatchesFile.ymlConfig.set("stopwatches." + name, this);
         try {

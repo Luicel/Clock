@@ -27,24 +27,25 @@ formatting:
   use-leading-zero-for-single-digits: true
 
   # Message to announce once a timer reaches 0 seconds remaining.
-  # Use {timer-name} for the timer's name.
-  # Color codes are supported!
+  # Use '{timerName}' for the timer's name.
+  # These variables work in-game too! And color codes are supported!
   timer-completion-announcement: "&7Timer &f{timer-name} &7has reached 0 seconds remaining!"
 
   # Message to announce once a stopwatch laps.
-  # Use {stopwatch-name} for the stopwatch's name.
-  # Use {lap-time} for the lap timestamp.
-  # Color codes are supported!
-  stopwatch-completion-announcement: "&7Stopwatch &f{stopwatch-name} &7has lapped at &f{lap-time}&7!"
+  # Use '{stopwatchName}' for the stopwatch's name.
+  # Use '{lapTime}' for the lap timestamp.
+  # These variables work in-game too! And color codes are supported!
+  stopwatch-lap-announcement: "&7Stopwatch &f{stopwatch-name} &7has lapped at &f{lap-time}&7!"
 
   # Default formats for timers.
-  # Use {timer-name} for the timer's name.
-  # Color codes are supported!
+  # Use '{timerName}' for the timer's name.
+  # These variables work in-game too! And color codes are supported!
   timer-default-format-prefix: "&b&lTimer: &f"
   timer-default-format-suffix: ""
 
   # Default formats for stopwatches.
-  # Use {stopwatch-name} for the timer's name.
-  # Color codes are supported!
+  # Use '{stopwatchName}' for the stopwatch's name.
+  # Use '{currentLapTime}' for the current lap time.
+  # These variables work in-game too! And color codes are supported!
   stopwatch-default-format-prefix: "&d&lStopwatch: &f"
   stopwatch-default-format-suffix: ""

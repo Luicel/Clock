@@ -22,8 +22,6 @@ public class CreateSubCommand extends SubCommands {
         } else {
             if (StopwatchesFile.doesStopwatchWithNameExist(getArgs()[1])) {
                 sendMessage(PrefixUtils.getErrorPrefix() + "A stopwatch with the name '&f" + getArgs()[1] + "&7' already exists!");
-            } else if (!Stopwatch.isNameValid(getArgs()[1])) {
-                sendMessage(PrefixUtils.getErrorPrefix() + "That name is invalid. Please only use alphanumeric characters, hyphens, and underscores.");
             } else {
                 createStopwatch();
             }

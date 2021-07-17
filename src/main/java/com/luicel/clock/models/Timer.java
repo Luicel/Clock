@@ -132,11 +132,6 @@ public class Timer extends ClockObject {
         return string.toString();
     }
 
-    public static boolean isNameValid(String name) {
-        // TODO
-        return true;
-    }
-
     public void save() {
         TimersFile.ymlConfig.set("timers." + name, this);
         try {
