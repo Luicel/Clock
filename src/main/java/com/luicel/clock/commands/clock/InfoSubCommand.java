@@ -22,8 +22,7 @@ public class InfoSubCommand extends SubCommands {
     @Override
     protected void execute() {
         sendMessage(PrefixUtils.getHeaderColoredLine("&e") + "&e&lCLOCK: &f(v" + Clock.getInstance().getDescription().getVersion() + ")");
-        sendMessage("&7Create, delete, and configure timers and stopwatches");
-        sendMessage("&7completely in-game!");
+        sendMessage("&7Create, configure, and display timers and stopwatches in-game!");
         sendMessage("");
         sendMessage("&7Check out the GitHub page for more information:");
         if (getPlayer() != null)
