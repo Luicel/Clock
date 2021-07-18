@@ -4,6 +4,8 @@ This is a Minecraft 1.16 plugin written using the Spigot API. It allows players 
 
 This project was entirely a learning experience for me and an excuse to familize myself with some new concepts and to brush up my skills on others. I plan to update this project periodically to gain experience with supporting long-term projects.
 
+You can download the latest version of Clock [here](https://github.com/Luicel/Clock/releases/latest).
+
 ### Commands
 
 ```
