@@ -1,5 +1,6 @@
 package com.luicel.clock.commands;
 
+import com.luicel.clock.Clock;
 import com.luicel.clock.annotations.ArgumentsText;
 import com.luicel.clock.annotations.HelpOrder;
 import com.luicel.clock.annotations.Permission;
@@ -31,7 +32,7 @@ public abstract class Commands implements TabExecutor {
     }
 
     private void registerSubCommands() {
-        new Reflections("com.luicel.clock.commands." + commandName).getSubTypesOf(SubCommands.class).forEach(subCommand -> {
+        Clock.getReflections().getSubTypesOf(SubCommands.class).forEach(subCommand -> {
             String subCommandName = subCommand.getSimpleName().replace("SubCommand", "").toLowerCase();
 
             subCommandClasses.put(subCommandName, subCommand);

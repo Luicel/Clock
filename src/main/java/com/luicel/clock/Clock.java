@@ -19,14 +19,16 @@ import java.util.Set;
 
 public final class Clock extends JavaPlugin {
     private static Clock instance;
+    private static Reflections reflections;
 
     @Override
     public void onEnable() {
         instance = this;
+        reflections = new Reflections("com.luicel.clock");
 
-        registerSerializables();
-        registerCommands();
-        registerFiles();
+        registerSerializables(reflections);
+        registerCommands(reflections);
+        registerFiles(reflections);
 
         new DisplayRunnable().runTaskTimer(getInstance(), 0, 1);
     }
@@ -36,15 +38,15 @@ public final class Clock extends JavaPlugin {
         updateFileData();
     }
 
-    private void registerSerializables() {
-        new Reflections("com.luicel.clock.models").getSubTypesOf(ClockObject.class).forEach(model -> {
+    private void registerSerializables(Reflections reflections) {
+        reflections.getSubTypesOf(ClockObject.class).forEach(model -> {
             String alias = model.getAnnotation(SerializableAs.class).value();
             ConfigurationSerialization.registerClass(model, alias);
         });
     }
 
-    private void registerCommands() {
-        new Reflections("com.luicel.clock.commands").getSubTypesOf(Commands.class).forEach(command -> {
+    private void registerCommands(Reflections reflections) {
+        reflections.getSubTypesOf(Commands.class).forEach(command -> {
             try {
                 Commands customCommand = command.newInstance();
                 getCommand(customCommand.commandName).setExecutor(customCommand);
@@ -54,8 +56,8 @@ public final class Clock extends JavaPlugin {
         });
     }
 
-    private void registerFiles() {
-        Set<Class<? extends Files>> classes = new Reflections("com.luicel.clock.files").getSubTypesOf(Files.class);
+    private void registerFiles(Reflections reflections) {
+        Set<Class<? extends Files>> classes = reflections.getSubTypesOf(Files.class);
         classes.stream().sorted(Comparator.comparing(c -> c.getAnnotation(FileDirectory.class).value())).forEach(file -> {
             try {
                 Constructor<?> constructor = file.getConstructor(String.class, String.class);
@@ -75,5 +77,9 @@ public final class Clock extends JavaPlugin {
 
     public static Clock getInstance() {
         return instance;
+    }
+
+    public static Reflections getReflections() {
+        return reflections;
     }
 }
