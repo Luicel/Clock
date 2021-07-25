@@ -8,15 +8,15 @@ import com.luicel.clock.models.Stopwatch;
 import com.luicel.clock.utils.PrefixUtils;
 import org.bukkit.command.CommandSender;
 
-@HelpOrder(9)
-@ArgumentsText("<name>")
-public class ResetSubCommand extends SubCommands {
-    public ResetSubCommand(CommandSender sender, String label, String[] args) {
+@HelpOrder(3)
+@ArgumentsText("<name> <text>")
+public class RenameSubCommand extends SubCommands {
+    public RenameSubCommand(CommandSender sender, String label, String[] args) {
         super(sender, label, args);
     }
 
     @Override
-    public void execute() {
+    protected void execute() {
         if (getArgs().length < 2) {
             printSyntaxMessage(this);
         } else {
@@ -24,16 +24,20 @@ public class ResetSubCommand extends SubCommands {
             if (stopwatch == null) {
                 sendMessage(PrefixUtils.getErrorPrefix() + "No stopwatch with the name '&f" + getArgs()[1] + "&7' exists!");
             } else {
-                resetStopwatch(stopwatch);
+                tryToRenameStopwatch(stopwatch);
             }
         }
     }
 
-    private void resetStopwatch(Stopwatch stopwatch) {
-        stopwatch.setMilliseconds(0);
-        stopwatch.setCurrentLapMilliseconds(0);
-        stopwatch.getLaps().clear();
-        stopwatch.save();
-        sendMessage(PrefixUtils.getStopwatchPrefix() + "Stopwatch '&f" + stopwatch.getName() + "&7' has been reset.");
+    private void tryToRenameStopwatch(Stopwatch stopwatch) {
+        if (StopwatchesFile.doesStopwatchWithNameExist(getArgs()[2])) {
+            sendMessage(PrefixUtils.getErrorPrefix() + "A stopwatch with the name '&f" + getArgs()[1] +
+                    "&7' already exists!");
+        } else {
+            stopwatch.delete();
+            stopwatch.setName(getArgs()[2]);
+            stopwatch.save();
+            sendMessage(PrefixUtils.getStopwatchPrefix() + "Stopwatch successfully renamed to '&f" + getArgs()[2] + "&7'.");
+        }
     }
 }

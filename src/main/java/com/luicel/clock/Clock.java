@@ -19,13 +19,12 @@ import java.util.Set;
 
 public final class Clock extends JavaPlugin {
     private static Clock instance;
-    private static Reflections reflections;
 
     @Override
     public void onEnable() {
         instance = this;
-        reflections = new Reflections("com.luicel.clock");
 
+        Reflections reflections = new Reflections("com.luicel.clock");
         registerSerializables(reflections);
         registerCommands(reflections);
         registerFiles(reflections);
@@ -77,9 +76,5 @@ public final class Clock extends JavaPlugin {
 
     public static Clock getInstance() {
         return instance;
-    }
-
-    public static Reflections getReflections() {
-        return reflections;
     }
 }

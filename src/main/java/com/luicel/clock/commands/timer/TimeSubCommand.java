@@ -8,7 +8,7 @@ import com.luicel.clock.models.Timer;
 import com.luicel.clock.utils.PrefixUtils;
 import org.bukkit.command.CommandSender;
 
-@HelpOrder(7)
+@HelpOrder(8)
 @ArgumentsText("<name> <add/remove/set> <seconds>")
 public class TimeSubCommand extends SubCommands {
     public TimeSubCommand(CommandSender sender, String label, String[] args) {

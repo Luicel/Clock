@@ -4,13 +4,11 @@ import com.luicel.clock.annotations.ArgumentsText;
 import com.luicel.clock.annotations.HelpOrder;
 import com.luicel.clock.commands.SubCommands;
 import com.luicel.clock.files.data.StopwatchesFile;
-import com.luicel.clock.files.data.TimersFile;
 import com.luicel.clock.models.Stopwatch;
-import com.luicel.clock.models.Timer;
 import com.luicel.clock.utils.PrefixUtils;
 import org.bukkit.command.CommandSender;
 
-@HelpOrder(10)
+@HelpOrder(11)
 @ArgumentsText("<name> <prefix/suffix> <text/clear>")
 public class FormatSubCommand extends SubCommands {
     public FormatSubCommand(CommandSender sender, String label, String[] args) {

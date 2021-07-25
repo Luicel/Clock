@@ -12,7 +12,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-@HelpOrder(7)
+@HelpOrder(8)
 @ArgumentsText("<name>")
 public class LapSubCommand extends SubCommands {
     public LapSubCommand(CommandSender sender, String label, String[] args) {

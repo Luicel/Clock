@@ -11,7 +11,7 @@ import com.luicel.clock.runnables.TimerRunnable;
 import com.luicel.clock.utils.PrefixUtils;
 import org.bukkit.command.CommandSender;
 
-@HelpOrder(5)
+@HelpOrder(6)
 @ArgumentsText("<name>")
 public class StartSubCommand extends SubCommands {
     public StartSubCommand(CommandSender sender, String label, String[] args) {

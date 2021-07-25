@@ -9,7 +9,7 @@ import com.luicel.clock.utils.ChatUtils;
 import com.luicel.clock.utils.PrefixUtils;
 import org.bukkit.command.CommandSender;
 
-@HelpOrder(3)
+@HelpOrder(4)
 @ArgumentsText("<name>")
 public class InfoSubCommand extends SubCommands {
     public InfoSubCommand(CommandSender sender, String label, String[] args) {

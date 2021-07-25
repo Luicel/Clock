@@ -12,7 +12,7 @@ import org.bukkit.command.CommandSender;
 
 import java.util.List;
 
-@HelpOrder(4)
+@HelpOrder(5)
 @ArgumentsText("")
 public class ListSubCommand extends SubCommands {
     public ListSubCommand(CommandSender sender, String label, String[] args) {

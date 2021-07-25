@@ -10,7 +10,7 @@ import com.luicel.clock.runnables.DisplayRunnable;
 import com.luicel.clock.utils.PrefixUtils;
 import org.bukkit.command.CommandSender;
 
-@HelpOrder(8)
+@HelpOrder(9)
 @ArgumentsText("<name> <none/actionbar>")
 public class DisplaySubCommand extends SubCommands {
     public DisplaySubCommand(CommandSender sender, String label, String[] args) {

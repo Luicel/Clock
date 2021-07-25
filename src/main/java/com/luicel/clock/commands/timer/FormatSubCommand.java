@@ -8,7 +8,7 @@ import com.luicel.clock.models.Timer;
 import com.luicel.clock.utils.PrefixUtils;
 import org.bukkit.command.CommandSender;
 
-@HelpOrder(9)
+@HelpOrder(10)
 @ArgumentsText("<name> <prefix/suffix> <text/clear>")
 public class FormatSubCommand extends SubCommands {
     public FormatSubCommand(CommandSender sender, String label, String[] args) {
