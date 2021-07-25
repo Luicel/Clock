@@ -2,7 +2,9 @@ package com.luicel.clock.commands;
 
 import com.luicel.clock.annotations.ArgumentsText;
 import com.luicel.clock.annotations.HelpOrder;
+import com.luicel.clock.annotations.Permission;
 import com.luicel.clock.utils.ChatUtils;
+import com.luicel.clock.utils.PermissionUtils;
 import com.luicel.clock.utils.PrefixUtils;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -40,10 +42,22 @@ public abstract class Commands implements TabExecutor {
         try {
             Class<? extends SubCommands> subCommandClass = subCommandClasses.get(args[0]);
 
+            // Check for valid permissions
+            String permission = "clock." + label + "." + args[0];
+            if (sender instanceof Player) {
+                if (!PermissionUtils.doesPlayerHavePermission((Player) sender, label, args[0])) {
+                    sender.sendMessage(ChatUtils.format(PrefixUtils.getErrorPrefix() +
+                            "Insufficient permissions!"));
+                    return;
+                }
+            }
+
+            // Create instance via constructor
             Constructor<?> constructor = subCommandClass.getConstructor(CommandSender.class, String.class, String[].class);
             constructor.setAccessible(true);
             Object subCommandInstance = constructor.newInstance(sender, label, args);
 
+            // Execute execute() method from above instance
             Method executeMethod = subCommandClass.getDeclaredMethod("execute");
             executeMethod.setAccessible(true);
             executeMethod.invoke(subCommandInstance);
@@ -51,8 +65,8 @@ public abstract class Commands implements TabExecutor {
             printHelpMessage((Player) sender);
         } catch (InvocationTargetException e) {
             if (sender instanceof Player)
-                sender.sendMessage(PrefixUtils.getErrorPrefix() +
-                        "An error has occurred. Check console for more information.");
+                sender.sendMessage(ChatUtils.format(PrefixUtils.getErrorPrefix() +
+                        "An error has occurred. Check console for more information."));
             e.printStackTrace();
         }
     }
