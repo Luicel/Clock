@@ -35,6 +35,22 @@ Stopwatch
   /stopwatch format <name> <prefix/suffix> <text/clear>
 ```
 
+### Permissions
+
+```
+Permissions use the following format: clock.<command>.<subcommand>
+
+Notes:
+  - Wildcards (*) are supported!
+  - clock.timer == clock.timer.* (for example)
+  - OP == clock.*
+
+Examples:
+  - clock.timer.create (access to create a timer, but nothing else)
+  - clock.timer.* (access to all /timer commands)
+  - clock.* (access to everything)
+```
+
 ### Config
 
 ```
@@ -97,18 +113,11 @@ formatting:
 
 ```
 - Add a configurable command executable action for when a timer hits 0 seconds remaining.
-- Implement a renaming command for timers and stopwatches.
-- Implement regex support for days, hours, minutes and seconds for time arguments (instead of just seconds/milliseconds).
 - Make timer and stopwatch ticking dependent on Timestamps instead of Minecraft server ticks.
 - Cleanup the way in which displays are stored, tracked, and displayed (it’s a bit messy). Perhaps a data/display.yml file would be nice.
-- Allow timers and stopwatches to display in titles and subtitles.
-- Add MVdWPlaceholderAPI support for timer and stopwatch displays. 
-- Reduce Reflections calls on startup.
-- Add aliases for commands (i.e. /clock information executes /clock info)
-- Add permissions for all commands.
+- Add MVdWPlaceholderAPI support for timer and stopwatch displays.
 - Formatting config options for core messages (configurable command prefixes, headers, and primary and secondary colors).
 - Implement an automatic config.yml version updater.
 - Potentially make display formats all one string (with variables such as {time} included) instead of prefix + time + suffix.
-- Potentially make ClockObject own all variables that are consistent between models (i.e. state, name and formats)
 - Make the stopwatch lap history size (the List<> size) configurable in the config.
 ```
