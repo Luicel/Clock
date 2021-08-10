@@ -1,11 +1,14 @@
 package com.luicel.clock.commands;
 
 import com.luicel.clock.annotations.ArgumentsText;
+import com.luicel.clock.annotations.FileDirectory;
 import com.luicel.clock.annotations.HelpOrder;
 import com.luicel.clock.annotations.Permission;
+import com.luicel.clock.files.Files;
 import com.luicel.clock.utils.ChatUtils;
 import com.luicel.clock.utils.PermissionUtils;
 import com.luicel.clock.utils.PrefixUtils;
+import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabExecutor;
@@ -15,10 +18,7 @@ import org.reflections.Reflections;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public abstract class Commands implements TabExecutor {
     private final Map<String, Class<? extends SubCommands>> subCommandClasses = new HashMap<>();
@@ -43,9 +43,8 @@ public abstract class Commands implements TabExecutor {
             Class<? extends SubCommands> subCommandClass = subCommandClasses.get(args[0]);
 
             // Check for valid permissions
-            String permission = "clock." + label + "." + args[0];
             if (sender instanceof Player) {
-                if (!PermissionUtils.doesPlayerHavePermission((Player) sender, label, args[0])) {
+                if (!PermissionUtils.doesPlayerHavePermission((Player) sender, commandName, args[0].toLowerCase())) {
                     sender.sendMessage(ChatUtils.format(PrefixUtils.getErrorPrefix() +
                             "Insufficient permissions!"));
                     return;
@@ -72,19 +71,28 @@ public abstract class Commands implements TabExecutor {
     }
 
     protected void printHelpMessage(Player player) {
-        player.sendMessage(ChatUtils.format("&c&lCOMMAND USAGE:"));
-        for (String text : getListOfHelpMessagesTexts()) {
-            player.sendMessage(ChatUtils.format(String.format("&7/%s %s", commandName, text)));
+        List<String> helpMessageTexts = getListOfHelpMessagesTexts(player);
+        if (helpMessageTexts.size() > 0) {
+            player.sendMessage(ChatUtils.format("&c&lCOMMAND USAGE:"));
+            for (String text : helpMessageTexts) {
+                player.sendMessage(ChatUtils.format(String.format("&7/%s %s", commandName, text)));
+            }
+        } else {
+            player.sendMessage(ChatUtils.format(PrefixUtils.getErrorPrefix() + "Insufficient permissions!"));
         }
     }
 
-    protected List<String> getListOfHelpMessagesTexts() {
-        List<String> texts = Arrays.asList(new String[subCommandClasses.size()]);
-        subCommandClasses.forEach((subCommandName, subCommandClass) -> {
-            String argumentsText = subCommandClass.getAnnotation(ArgumentsText.class).value();
-            int helpOrder = subCommandClass.getAnnotation(HelpOrder.class).value();
+    protected List<String> getListOfHelpMessagesTexts(Player player) {
+        List<String> texts = new ArrayList<>();
+        subCommandClasses.values().stream().sorted(Comparator.comparing(c -> c.getAnnotation(HelpOrder.class).value())).forEach(subCommandClass -> {
+            // Ideally I would like to grab SubCommand name from subCommandClasses map, but :shrug:
+            String subCommandName = subCommandClass.getSimpleName().replace("SubCommand", "").toLowerCase();
 
-            texts.set(helpOrder - 1, String.format("%s %s", subCommandName, argumentsText));
+            if (PermissionUtils.doesPlayerHavePermission(player, commandName, subCommandName)) {
+                String argumentsText = subCommandClass.getAnnotation(ArgumentsText.class).value();
+
+                texts.add(String.format("%s %s", subCommandName, argumentsText));
+            }
         });
         return texts;
     }
