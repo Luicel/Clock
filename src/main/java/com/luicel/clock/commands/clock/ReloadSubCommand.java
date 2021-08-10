@@ -38,9 +38,10 @@ public class ReloadSubCommand extends SubCommands {
     }
 
     private void reload() {
+        ConfigFile.reload();
+
         cacheSeconds();
 
-        ConfigFile.reload();
         TimersFile.reload();
         StopwatchesFile.reload();
 
