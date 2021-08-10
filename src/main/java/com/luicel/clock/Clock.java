@@ -3,8 +3,10 @@ package com.luicel.clock;
 import com.luicel.clock.annotations.FileDirectory;
 import com.luicel.clock.commands.Commands;
 import com.luicel.clock.files.Files;
+import com.luicel.clock.files.data.StopwatchesFile;
 import com.luicel.clock.files.data.TimersFile;
 import com.luicel.clock.models.ClockObject;
+import com.luicel.clock.models.Stopwatch;
 import com.luicel.clock.models.Timer;
 import com.luicel.clock.runnables.DisplayRunnable;
 import org.bukkit.configuration.serialization.ConfigurationSerialization;
@@ -72,6 +74,7 @@ public final class Clock extends JavaPlugin {
 
     private void updateFileData() {
         TimersFile.getTimers().forEach(Timer::save);
+        StopwatchesFile.getStopwatches().forEach(Stopwatch::save);
     }
 
     public static Clock getInstance() {
