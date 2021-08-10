@@ -12,9 +12,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 public class StopwatchCommand extends Commands {
     @Override
@@ -30,11 +28,18 @@ public class StopwatchCommand extends Commands {
 
     @Override
     public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
+        Map<String, Class<? extends SubCommands>> subCommandsWithPermission = new HashMap<>();
+        getSubCommandClasses().forEach((subCommandName, subCommandClass) -> {
+            if (PermissionUtils.doesPlayerHavePermission((Player) sender, commandName, subCommandName))
+                subCommandsWithPermission.put(subCommandName, subCommandClass);
+        });
+
         if (args.length == 1) {
-            return ChatUtils.getElementsWithPrefix(args[0], new ArrayList<>(getSubCommandClasses().keySet()));
+            return ChatUtils.getElementsWithPrefix(args[0],
+                    new ArrayList<>(subCommandsWithPermission.keySet()));
         } else {
             Class<? extends SubCommands> subCommandClass = getSubCommandClasses().get(args[0]);
-            if (subCommandClass != null) {
+            if (subCommandClass != null && subCommandsWithPermission.containsValue(subCommandClass)) {
                 String[] textArguments = subCommandClass.getAnnotation(ArgumentsText.class).value().split(" ");
                 try {
                     String argText = textArguments[args.length - 2].toLowerCase();
