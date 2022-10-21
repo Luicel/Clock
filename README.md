@@ -2,7 +2,7 @@
 
 This is a Minecraft 1.16 plugin written using the Spigot API. It allows players to create, configure, and display timers and stopwatches in-game!
 
-This project was entirely a learning experience for me and an excuse to familize myself with some new concepts and to brush up my skills on others. I plan to update this project periodically to gain experience with supporting long-term projects.
+This project was created primarily as a learning experience for me. During its development, I had a chance to brush up on some OO principles such as polymorphism and to learn new intermediate Java concepts such as annotations and Reflections. Though most importantly of all, I used this project as a lesson for how to develop clean and reliable user experiences.
 
 You can download the latest version of Clock [here](https://github.com/Luicel/Clock/releases/latest).
 
@@ -85,39 +85,26 @@ formatting:
   use-leading-zero-for-single-digits: true
 
   # Message to announce once a timer reaches 0 seconds remaining.
-  # Use '{timerName}' for the timer's name.
+  # Use '{timer-name}' for the timer's name.
   # These variables work in-game too! And color codes are supported!
   timer-completion-announcement: "&7Timer &f{timer-name} &7has reached 0 seconds remaining!"
 
   # Message to announce once a stopwatch laps.
-  # Use '{stopwatchName}' for the stopwatch's name.
-  # Use '{lapTime}' for the lap timestamp.
+  # Use '{stopwatch-name}' for the stopwatch's name.
+  # Use '{lap-time}' for the lap timestamp.
   # These variables work in-game too! And color codes are supported!
   stopwatch-lap-announcement: "&7Stopwatch &f{stopwatch-name} &7has been lapped at &f{lap-time}&7!"
 
   # Default formats for timers.
-  # Use '{timerName}' for the timer's name.
+  # Use '{timer-name}' for the timer's name.
   # These variables work in-game too! And color codes are supported!
   timer-default-format-prefix: "&b&lTimer: &f"
   timer-default-format-suffix: ""
 
   # Default formats for stopwatches.
-  # Use '{stopwatchName}' for the stopwatch's name.
-  # Use '{currentLapTime}' for the current lap time.
+  # Use '{stopwatch-name}' for the stopwatch's name.
+  # Use '{currentLap-time}' for the current lap time.
   # These variables work in-game too! And color codes are supported!
   stopwatch-default-format-prefix: "&d&lStopwatch: &f"
   stopwatch-default-format-suffix: ""
-```
-
-### (Potential) Future Ideas, Changes, and Additions
-
-```
-- Add a configurable command executable action for when a timer hits 0 seconds remaining.
-- Make timer and stopwatch ticking dependent on Timestamps instead of Minecraft server ticks.
-- Cleanup the way in which displays are stored, tracked, and displayed (it’s a bit messy). Perhaps a data/display.yml file would be nice.
-- Add MVdWPlaceholderAPI support for timer and stopwatch displays.
-- Formatting config options for core messages (configurable command prefixes, headers, and primary and secondary colors).
-- Implement an automatic config.yml version updater.
-- Potentially make display formats all one string (with variables such as {time} included) instead of prefix + time + suffix.
-- Make the stopwatch lap history size (the List<> size) configurable in the config.
 ```
